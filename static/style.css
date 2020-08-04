@@ -1,3 +1,8 @@
+@font-face { 
+    font-family: "rexlia"; 
+    src: url("/rexlia.ttf"); 
+}
+
 body {
     background-color: black;
     padding: 0;
@@ -22,7 +27,7 @@ hr {
 }
 * {
     color: hsl(30, 100%, 50%);
-    font-family: 'Press Start 2P', cursive;
+    font-family: rexlia, cursive;
     font-size: 12pt;
     line-height: 12pt;
 }
