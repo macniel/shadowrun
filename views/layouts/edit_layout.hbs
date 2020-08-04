@@ -88,15 +88,20 @@
                 <option value="{{this}}">{{this}}</option>
             {{/each}}
         </select>
-
-        Or create new file
-        <input name="newFile">
-
-        <button type="submit">Load File</button>
         </label>
 
-        
+        Or
+        <label>
+
+            Create new file
+            <input name="newFile">
+
+        </label>
+
+        <button type="submit">Load File</button>
+       
     {{/if}}
+        
     </form>
     {{> links links=this._links}}
     

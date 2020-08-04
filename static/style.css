@@ -6,27 +6,95 @@
 body {
     background-color: black;
     padding: 0;
-    margin: 12pt
+    margin: 12pt;
+
+    --accent: hsl(209, 100%, 26%);
+    --text: hsl(209, 100%, 50%);
+    --chrome: hsl(209, 100%, 10%);
+    --chrome-text: hsl(209, 100%, 70%);
+
+    --hypertext: hsl(209,100%, 80%);
+    --hypertext-hover: hsl(209, 100%, 85%);
+    
+    
 }
-h1,h2,h3 {
-   color: hsl(10, 100%, 40%);
+
+h1 {
+    background-color: var(--chrome);
+    margin: -12pt;
+    padding: 12pt;
+    font-size: 18pt;
+    position: relative;
+    margin-bottom: 30pt;
+    color: var(--chrome-text);
     text-transform: uppercase;
+}
+
+h1:before {
+    position: absolute;
+    border: 30pt solid var(--chrome);
+    border-color: transparent var(--chrome) transparent transparent;
+    border-width: 0 48pt 24pt 0;
+    right: 25%;
+    width: 24pt;
+    top: 24pt;
+    height: 12pt;
+    display: block;
+    content: '';
+}
+h1:after {
+    position: absolute;
+    background-color: var(--chrome);
+    right: 0;
+    left: 75%;
+    width: 25%;
+    top: 24pt;
+    height: 36pt;
+    display: block;
+    content: '';
+}
+
+h2,h3 {
+   color: var(--text);
+    text-transform: uppercase;
+}
+
+select {
+    background-color: black;
+    border: 1px solid var(--accent);
+}
+
+button {
+    background-color: transparent;
+    color: var(--text);
+    border: 0;
+    height: 12pt;
+    line-height: 12pt;
+    padding: 0;
+    margin-bottom: 12pt;
+    cursor: pointer;
+    display: block;
+}
+
+button::before {
+    content: '> ';
 }
 
 .meta {
     margin: 12pt -12pt;
     padding: 0 12pt;
-    background-color: #220;
+    color: var(--chrome-text);
+    background-color: var(--chrome);
 }
 
 hr {
     margin-bottom: 6pt;
     padding-bottom: 6pt;
     border: 0;
-    border-bottom: 2px solid hsl(10, 100%, 30%);
+    border-bottom: 2px solid var(--accent);
 }
 * {
-    color: hsl(30, 100%, 50%);
+    color: var(--chrome-text);
     font-family: rexlia, cursive;
     font-size: 12pt;
     line-height: 12pt;
@@ -34,7 +102,8 @@ hr {
 
 label {
     display: block;
-    background-color: #220;
+    color: var(--chrome-text);
+    background-color: var(--chrome);
     margin: 12pt 0;
     padding: 0 8px 4px 4px;
     
@@ -48,12 +117,20 @@ label input, label textarea {
     width: 100%;
 }
 
+li:nth-child(even) {
+    background-color: 
+}
+
+textarea {
+    resize: vertical;
+}
+
 a {
     text-decoration: none;
-    color: hsl(30, 100%, 60%);
+    color: var(--hypertext);
 }
 a:hover {
-    color: hsl(30, 100%, 80%);
+    color: var(--hypertext-hover);
 }
 :not(nav ul li) a::before {
     content: '[ ';
