@@ -1,0 +1,24 @@
+{
+  "name": "shadowrun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macniel/shadowrun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/macniel/shadowrun/issues"
+  },
+  "homepage": "https://github.com/macniel/shadowrun#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-hbs": "^2.3.4"
+  }
+}

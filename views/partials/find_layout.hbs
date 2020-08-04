@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{this.title}}</title>
+    <link href="./style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
+</head>
+<body>
+
+    <h1>Matrix Perception</h1>
+    <hr/>
+    {{#if notfound}}
+    <article>
+        You found nothing!
+    </article>
+    {{/if}}
+    <article>
+        Try this only when you know what you are doing.
+        <form method="GET" action="/find">
+        <input name="query">
+        </form>
+    </article>
+    
+</body>
+</html>

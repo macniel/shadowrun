@@ -1,0 +1,49 @@
+body {
+    background-color: black;
+}
+h1,h2,h3 {
+   color: hsl(10, 100%, 40%);
+    text-transform: uppercase;
+}
+hr {
+    margin-bottom: 6pt;
+    padding-bottom: 6pt;
+    border: 0;
+    border-bottom: 2px solid hsl(10, 100%, 30%);
+}
+* {
+    color: hsl(30, 100%, 50%);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12pt;
+    line-height: 12pt;
+}
+a {
+    text-decoration: none;
+    color: hsl(30, 100%, 60%);
+}
+a:hover {
+    color: hsl(30, 100%, 80%);
+}
+:not(nav ul li) a::before {
+    content: '[ ';
+}
+:not(nav ul li) a::after {
+    content: ' ]';
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    text-indent: 0;
+    margin: 0;
+    padding: 0;
+}
+nav ul li:before {
+    content:'> ';
+}
+
+article {
+    padding-bottom: 12pt;
+}
