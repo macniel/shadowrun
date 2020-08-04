@@ -1,10 +1,19 @@
 body {
     background-color: black;
+    padding: 0;
+    margin: 12pt
 }
 h1,h2,h3 {
    color: hsl(10, 100%, 40%);
     text-transform: uppercase;
 }
+
+.meta {
+    margin: 12pt -12pt;
+    padding: 0 12pt;
+    background-color: #220;
+}
+
 hr {
     margin-bottom: 6pt;
     padding-bottom: 6pt;
@@ -17,6 +26,23 @@ hr {
     font-size: 12pt;
     line-height: 12pt;
 }
+
+label {
+    display: block;
+    background-color: #220;
+    margin: 12pt 0;
+    padding: 0 8px 4px 4px;
+    
+}
+
+label input, label textarea {
+    display: block;
+    background-color: black;
+    border: 0;
+    margin: 0;
+    width: 100%;
+}
+
 a {
     text-decoration: none;
     color: hsl(30, 100%, 60%);

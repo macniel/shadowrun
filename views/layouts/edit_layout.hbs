@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{this.title}}</title>
+    <link href="./style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
+</head>
+<body>
+
+    <h1>Edit File</h1>
+    <hr/>
+    <form method="POST" action="/edit">
+    {{#if selectedFile}}
+        <label>
+            Title
+            <input name="title" value="{{title}}">
+        </label>
+        <label>
+            Content
+            <textarea name="content">{{content}}</textarea>
+        </label>
+        <label>
+            links
+            <ul id="links">
+                {{#each _links}}<li>
+                Title: <input name="titles[]" value="{{this.title}}"/><br/>
+                link: <select name="hrefs[]">
+                     <option value="{{this.href}}" hidden="hidden" selected="selected">{{this.href}}</option>
+            {{#each ../files}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+
+        </select><br/>
+            <button onclick="removeRow(event)">Remove Entry</button></li>{{/each}}</ul>
+            <button onclick="addRow(event)">Add Link</button>
+            <script>
+                function removeRow(event) {
+                    row = event.srcElement.parentNode;
+                    row.parentNode.removeChild(row);
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                }
+                function addRow(event) {
+                    const c = document.createElement('li');
+                    c.innerHTML = `
+                         Title: <input name="titles[]"/><br/>
+                        link: <select name="hrefs[]">
+                        {{#each files}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select><br/>
+                    `;
+                    document.getElementById('links').appendChild(c);
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                }
+            </script>
+        </label>
+        <label>
+            Template view
+            <select name="view" value="{{internalView}}">
+                 <option value="{{internalView}}" hidden="hidden" selected="selected">{{internalView}}</option>
+                {{#each views}}
+                   <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </label>
+        <label>
+            File Creation Time
+            <output name="_created">{{_created}}</output>
+        </label>
+        <label>
+            File Last Modified Time
+            <output name="_modified">{{_modified}}</output>
+        </label>
+        <button type="submit">Edit File</button>
+    {{else}}
+        <label>
+            File Selection
+        
+        <select name="file">
+            <option value=""></option>
+            {{#each this.files}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+        </select>
+
+        Or create new file
+        <input name="newFile">
+
+        <button type="submit">Load File</button>
+        </label>
+
+        
+    {{/if}}
+    </form>
+    {{> links links=this._links}}
+    
+</body>
+</html>

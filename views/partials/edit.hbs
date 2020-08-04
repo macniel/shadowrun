@@ -1,0 +1,19 @@
+
+ <h1>Edit File</h1>
+<hr/>
+<form method="POST" action="/edit">
+
+    <label>
+        File Selection
+    
+    <select name="file">
+        {{#each this.files}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+    <button onclick="return false">Load File</button>
+    </label>
+
+</form>
+
+    
