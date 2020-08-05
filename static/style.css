@@ -11,6 +11,7 @@ body {
     --accent: hsl(209, 100%, 26%);
     --text: hsl(209, 100%, 50%);
     --chrome: hsl(209, 100%, 10%);
+    --chrome-dark: hsl(209, 100%, 5%);
     --chrome-text: hsl(209, 100%, 70%);
 
     --hypertext: hsl(209,100%, 80%);
@@ -19,7 +20,7 @@ body {
     
 }
 
-h1 {
+header h1 {
     background-color: var(--chrome);
     margin: -12pt;
     padding: 12pt;
@@ -28,6 +29,21 @@ h1 {
     margin-bottom: 30pt;
     color: var(--chrome-text);
     text-transform: uppercase;
+}
+
+header button {
+    position: absolute;
+    right: 8pt;
+    top: 8px;
+    height: 48pt;
+    width: 48pt;
+    background-color: var(--chrome-dark);
+    border: 1px solid var(--accent);
+    color: var(--chrome-text);
+    text-transform: uppercase;
+}
+header button:before {
+    content: '';
 }
 
 h1:before {

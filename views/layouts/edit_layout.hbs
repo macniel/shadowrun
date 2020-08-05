@@ -8,9 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
 </head>
 <body>
-
-    <h1>Edit File</h1>
-    <hr/>
+    <header>
+        <h1>Edit File</h1>
+    </header>
+    
     <form method="POST" action="/edit">
     {{#if selectedFile}}
         <label>
@@ -103,7 +104,7 @@
     {{/if}}
         
     </form>
-    {{> links links=this._links}}
+    {{> links}}
     
 </body>
 </html>
