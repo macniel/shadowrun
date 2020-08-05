@@ -13,7 +13,19 @@ app.engine('hbs', hbs.express4({
     extname: '.hbs'
 }));
 
-hbs.registerHelper('dynamicPartial', function(context, options) { return context._view || 'page' });
+hbs.registerHelper('mirror', function(aFile, options) { 
+    if (fs.existsSync(__dirname + '/data/' + aFile +'.json')) {
+        console.log('mirroring ' + aFile);
+        const data = JSON.parse(fs.readFileSync(__dirname + '/data/' + aFile + '.json', 'utf-8'));
+        return options.fn(data);
+    } else {
+        return '';
+    }
+});
+
+
+hbs.registerHelper('dateOnly', function(aDate) { return aDate.toISOString().split('T')[0] });
+
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -67,7 +79,6 @@ app.get('/edit', (req, res) => {
 });
 
 app.post('/edit', (req, res) => {
-    console.log(req.body);
     if(req.body.file) {
         res.redirect('/edit?file=' + req.body.file.trim());
         return;
@@ -87,6 +98,7 @@ app.post('/edit', (req, res) => {
     }
     data.title = req.body.title.trim();
     data.content = req.body.content.trim();
+    data.summary = req.body.summary.trim();
     data._view = req.body.view;
     if (!data._links) {
         data._links = [];
@@ -97,6 +109,15 @@ app.post('/edit', (req, res) => {
                 title: req.body.titles[i],
                 href: req.body.hrefs[i],
             });
+        }
+    }
+
+    if (!data._contents) {
+        data._contents = [];
+    }
+    if(req.body.contents) {
+        for (let i = 0; i < req.body.contents.length; ++i) {
+            data._contents.push(req.body.contents[i]);
         }
     }
     data._modified = new Date();

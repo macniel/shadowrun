@@ -1,0 +1,16 @@
+<article>
+    {{{this.content}}}
+</article>
+
+<h2>Archived Data Logs</h2>
+{{#each _contents}}
+    <article>
+    {{#mirror this}}
+        {{summary}}
+    {{/mirror}}
+    <a href="/{{this}}">read more&hellip;</a>
+    </article>
+{{/each}}
+
+
+{{> links _links}}

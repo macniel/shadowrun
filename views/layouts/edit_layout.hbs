@@ -19,9 +19,52 @@
             <input name="title" value="{{title}}">
         </label>
         <label>
-            Content
+            Summary
+            <textarea name="summary">{{summary}}</textarea>
+        </label>
+        <label>
+            Markdown-Content
             <textarea name="content">{{content}}</textarea>
         </label>
+
+        <label>
+            Subcontent
+            <ul id="contents">
+                {{#each _contents}}<li>
+                document: <select name="contents[]">
+                     <option value="{{this}}" hidden="hidden" selected="selected">{{this}}</option>
+            {{#each ../files}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+
+        </select><br/>
+            <button onclick="removeContentRow(event)">Remove Entry</button></li>{{/each}}</ul>
+            <button onclick="addContentRow(event)">Add Link</button>
+            <script>
+                function removeContentRow(event) {
+                    row = event.srcElement.parentNode;
+                    row.parentNode.removeChild(row);
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                }
+                function addContentRow(event) {
+                    const c = document.createElement('li');
+                    c.innerHTML = `
+                        document: <select name="contents[]">
+                        {{#each files}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select><br/>
+                    `;
+                    document.getElementById('contents').appendChild(c);
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                }
+            </script>
+        </label>
+
         <label>
             links
             <ul id="links">
