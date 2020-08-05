@@ -109,11 +109,20 @@ hr {
     border: 0;
     border-bottom: 2px solid var(--accent);
 }
+
+td strong {
+    color: var(--text);
+}
+td {
+    font-weight: lighter;
+}
+
 * {
     color: var(--chrome-text);
     font-family: rexlia, cursive;
     font-size: 12pt;
     line-height: 12pt;
+    text-shadow: 1px 1px 3px var(--accent);
 }
 
 label {
