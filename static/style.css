@@ -46,6 +46,13 @@ header button:before {
     content: '';
 }
 
+footer label {
+    width: 140px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
 h1:before {
     position: absolute;
     border: 30pt solid var(--chrome);

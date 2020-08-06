@@ -24,7 +24,9 @@ hbs.registerHelper('mirror', function(aFile, options) {
 });
 
 
-hbs.registerHelper('dateOnly', function(aDate) { return aDate.toISOString().split('T')[0] });
+hbs.registerHelper('dateOnly', function(aDate) { 
+    return new Date(aDate).toISOString().split('T')[0] 
+});
 
 
 app.use(bodyParser.urlencoded());
@@ -59,7 +61,7 @@ app.get('/edit', (req, res) => {
         } else {
             data = {};
         }
-        data.files = fs.readdirSync(__dirname + '/data/').map( fileName => fileName.replace('.json', ''));
+        data.files = fs.readdirSync(__dirname + '/data/').filter(fileName => fileName.indexOf('.json') != -1).map( fileName => fileName.replace('.json', ''));
         data.views = fs.readdirSync(__dirname + '/views/partials/').map( fileName => fileName.replace('.hbs', ''));  
         data.internalView = data._view;
         data._view = 'edit';
@@ -68,7 +70,7 @@ app.get('/edit', (req, res) => {
         res.render(data._view, data);
     } else {
         const data = {};
-        data.files = fs.readdirSync(__dirname + '/data/').map( fileName => fileName.replace('.json', ''));
+        data.files = fs.readdirSync(__dirname + '/data/').filter(fileName => fileName.indexOf('.json') != -1).map( fileName => fileName.replace('.json', ''));
         data.views = fs.readdirSync(__dirname + '/views/partials/').map( fileName => fileName.replace('.hbs', ''));
         data.internalView = data._view;
         data._view = 'edit';
@@ -79,6 +81,7 @@ app.get('/edit', (req, res) => {
 });
 
 app.post('/edit', (req, res) => {
+    console.log(req.body);
     if(req.body.file) {
         res.redirect('/edit?file=' + req.body.file.trim());
         return;
@@ -91,11 +94,8 @@ app.post('/edit', (req, res) => {
     let data = {};
     if (fs.existsSync(__dirname + '/data/' + p)) {
         data = JSON.parse(fs.readFileSync(__dirname + '/data/' + p +'.json', 'utf-8'));
-        data._created = new Date(req.body._created);
-    } else {
-        data._created = new Date();
-        data._created.setFullYear(data._created.getFullYear() + 50);    
     }
+    data._created = new Date(req.body._created);
     data.title = req.body.title.trim();
     data.content = req.body.content.trim();
     data.summary = req.body.summary.trim();
@@ -121,9 +121,9 @@ app.post('/edit', (req, res) => {
         }
     }
     data._modified = new Date();
-    data._modified.setFullYear(data._modified.getFullYear() + 50);
+    data._modified.setFullYear(data._modified.getFullYear() + 55);
     fs.writeFileSync(__dirname + '/data/' + p + '.json', JSON.stringify(data));
-    res.redirect("/edit");
+    res.redirect("/" + p);
 });
 
 app.get('/:title', (req, res) => {
