@@ -53,7 +53,7 @@ footer label {
     padding: 0;
 }
 
-h1:before {
+header h1:before {
     position: absolute;
     border: 30pt solid var(--chrome);
     border-color: transparent var(--chrome) transparent transparent;
@@ -65,7 +65,7 @@ h1:before {
     display: block;
     content: '';
 }
-h1:after {
+header h1:after {
     position: absolute;
     background-color: var(--chrome);
     right: 0;
@@ -125,7 +125,7 @@ td {
 }
 
 * {
-    color: var(--chrome-text);
+    color: var(--text);
     font-family: rexlia, cursive;
     font-size: 12pt;
     line-height: 12pt;
