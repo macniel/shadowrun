@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const md = require('markdown-it')();
 const bodyParser = require('body-parser');
+const { ADDRGETNETWORKPARAMS } = require('dns');
 
 app.engine('hbs', hbs.express4({
     layoutsDir: path.join(__dirname, 'views/layouts'),
@@ -23,9 +24,17 @@ hbs.registerHelper('mirror', function(aFile, options) {
     }
 });
 
+hbs.registerHelper('md', function(aMarkdown, options) { 
+    return md.render(aMarkdown);
+});
+
 
 hbs.registerHelper('dateOnly', function(aDate) { 
-    return new Date(aDate).toISOString().split('T')[0] 
+    try {
+        return new Date(aDate).toISOString().split('T')[0] 
+    } catch (e) {
+        return aDate;
+    }
 });
 
 
