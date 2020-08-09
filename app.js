@@ -127,16 +127,20 @@ app.post('/edit', (req, res) => {
 });
 
 app.get('/:title', (req, res) => {
-    const p = req.params.title;
-    let data = {};
-    if (fs.existsSync(__dirname + '/data/' + p + '.json')) {
-        data = JSON.parse(fs.readFileSync(__dirname + '/data/' + p +'.json', 'utf-8'));    
-    } else {
-        data = JSON.parse(fs.readFileSync(__dirname + '/data/404.json', 'utf-8'));    
-        data._view = '404';
+    try {
+        const p = req.params.title;
+        let data = {};
+        if (fs.existsSync(__dirname + '/data/' + p + '.json')) {
+            data = JSON.parse(fs.readFileSync(__dirname + '/data/' + p +'.json', 'utf-8'));    
+        } else {
+            data = JSON.parse(fs.readFileSync(__dirname + '/data/404.json', 'utf-8'));    
+            data._view = '404';
+        }
+        data.content = md.render(data.content);
+        res.render(data._view, data);
+    } catch (e) {
+        res.send(e);
     }
-    data.content = md.render(data.content);
-    res.render(data._view, data);
 });
 
 app.get('/', (req, res) => {
