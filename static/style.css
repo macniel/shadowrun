@@ -9,7 +9,7 @@ body {
     margin: 12pt;
 
     --accent: hsl(209, 100%, 26%);
-    --text: hsl(209, 100%, 50%);
+    --text: hsl(209, 100%, 75%);
     --chrome: hsl(209, 100%, 10%);
     --chrome-dark: hsl(209, 100%, 5%);
     --chrome-text: hsl(209, 100%, 70%);
@@ -117,8 +117,69 @@ hr {
     border-bottom: 2px solid var(--accent);
 }
 
+table {
+    border: 8pt solid var(--chrome);
+    border-left: 0;
+    border-right: 0;
+    position: relative;
+    margin: 24pt 0;
+}
+
+table thead tr {
+    position: absolute;
+    top: -12pt;
+    z-index: 5;
+}
+
+table >*:first-child:before {
+    position: absolute;
+    border: 30pt solid var(--chrome);
+    border-color: transparent transparent transparent var(--chrome);
+    border-width: 12pt 0 0 24pt;
+    left: 90%;
+    width: 24pt;
+    top: -12pt;
+    height: 6pt;
+    display: block;
+    content: '';
+}
+table >*:first-child:after {
+    position: absolute;
+    background-color: var(--chrome);
+    left: 0;
+    width: 90%;
+    top: -12pt;
+    height: 12pt;
+    display: block;
+    content: '';
+}
+
+table:before {
+    position: absolute;
+    border: 30pt solid var(--chrome);
+    border-color: transparent var(--chrome) transparent transparent;
+    border-width: 0 24pt 12pt 0;
+    left: 0;
+    width: 24pt;
+    bottom: -12pt;
+    height: 6pt;
+    display: block;
+    content: '';
+}
+table:after {
+    position: absolute;
+    background-color: var(--chrome);
+    right: 0;
+    margin-left: 48pt;
+    left: 0;
+    bottom: -12pt;
+    height: 12pt;
+    display: block;
+    content: '';
+}
+
 td strong {
-    color: var(--text);
+    color: var(--chrome-text);
 }
 td {
     font-weight: lighter;
