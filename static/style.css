@@ -3,6 +3,13 @@
     src: url("/rexlia.ttf"); 
 }
 
+@font-face {
+    font-family: 'power_symbols';
+    src: url('/Unicode_IEC_symbol.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: black;
     padding: 0;
@@ -20,6 +27,10 @@ body {
     
 }
 
+.iec_Symbols {
+    font-family: 'power_symbols';
+}
+
 header h1 {
     background-color: var(--chrome);
     margin: -12pt;
@@ -31,10 +42,18 @@ header h1 {
     text-transform: uppercase;
 }
 
-header button {
+header .button-group {
     position: absolute;
     right: 8pt;
     top: 8px;
+    width: fit-content;
+}
+header .button-group button {
+    float: right;
+    margin-left: 8pt;
+}
+
+header button {
     height: 48pt;
     width: 48pt;
     background-color: var(--chrome-dark);
@@ -123,6 +142,10 @@ table {
     border-right: 0;
     position: relative;
     margin: 24pt 0;
+}
+
+aside {
+    float: left;
 }
 
 table thead tr {

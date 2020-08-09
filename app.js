@@ -3,9 +3,28 @@ const app = express();
 const hbs = require('express-hbs');
 const fs = require('fs');
 const path = require('path');
-const md = require('markdown-it')();
+const md = require('markdown-it')()
+           .use(require('markdown-it-container'), 'aside', {
+                validate: function(params) {
+                    return params.trim().match(/^aside\s+(.*)$/);
+                },
+                
+                render: function (tokens, idx) {
+                    var m = tokens[idx].info.trim().match(/^aside\s+(.*)$/);
+                
+                    if (tokens[idx].nesting === 1) {
+                    // opening tag
+                    return '<aside><table><thead><tr><th>' + md.utils.escapeHtml(m[1]) + '</th></tr></thead><tbody><tr><td>\n';
+                
+                    } else {
+                    // closing tag
+                    return '</td></tr></tbody></table></aside>\n';
+                    }
+                }
+           });
 const bodyParser = require('body-parser');
-const { ADDRGETNETWORKPARAMS } = require('dns');
+const session = require('express-session');
+const { request } = require('http');
 
 app.engine('hbs', hbs.express4({
     layoutsDir: path.join(__dirname, 'views/layouts'),
@@ -14,9 +33,14 @@ app.engine('hbs', hbs.express4({
     extname: '.hbs'
 }));
 
+app.use(session({
+    secret: 'MasterSecret',
+    resave: true,
+    saveUnitialized: true,
+}));
+
 hbs.registerHelper('mirror', function(aFile, options) { 
     if (fs.existsSync(__dirname + '/data/' + aFile +'.json')) {
-        console.log('mirroring ' + aFile);
         const data = JSON.parse(fs.readFileSync(__dirname + '/data/' + aFile + '.json', 'utf-8'));
         return options.fn(data);
     } else {
@@ -61,6 +85,10 @@ app.get('/find', (req, res) => {
 });
 
 app.get('/edit', (req, res) => {
+    if (!req.session.loggedIn) {
+        res.sendStatus(403).end();
+        return;
+    }
     let title = req.query.file;
     if (title) {
         title = title.trim();
@@ -76,6 +104,7 @@ app.get('/edit', (req, res) => {
         data._view = 'edit';
         data.layout = 'edit_layout';
         data.selectedFile = true;
+        data.loggedIn = req.session.loggedIn;
         res.render(data._view, data);
     } else {
         const data = {};
@@ -84,13 +113,42 @@ app.get('/edit', (req, res) => {
         data.internalView = data._view;
         data._view = 'edit';
         data.layout = 'edit_layout';
-        data.selectedFile = false;        
+        data.selectedFile = false;  
+        data.loggedIn = req.session.loggedIn;    
+        data._author = req.session.username;  
         res.render(data._view, data);
     }
 });
 
+app.get('/login', (req, res) => {
+
+    res.render('page', {
+        layout: 'login_layout'
+    })
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
+
+app.post('/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    if (username && password) {
+        if (username === 'louis' && password === 'sybil') {
+            req.session.loggedIn = true;
+            req.session.username = username;
+            res.redirect('/');
+        } else {
+            res.send('Incorrect Username and or password!').end();
+        }
+    } else {
+        res.send('Please enter Username and Password!').end();
+    }
+});
+
 app.post('/edit', (req, res) => {
-    console.log(req.body);
     if(req.body.file) {
         res.redirect('/edit?file=' + req.body.file.trim());
         return;
@@ -104,10 +162,15 @@ app.post('/edit', (req, res) => {
     if (fs.existsSync(__dirname + '/data/' + p)) {
         data = JSON.parse(fs.readFileSync(__dirname + '/data/' + p +'.json', 'utf-8'));
     }
+    if (req.body._author.trim() !== '' && req.body._author !== req.session.username) {
+        res.sendStatus(403).end();
+        return;
+    }
     data._created = new Date(req.body._created);
     data.title = req.body.title.trim();
     data.content = req.body.content.trim();
     data.summary = req.body.summary.trim();
+    data._author = req.body._author.trim();
     data._view = req.body.view;
     if (!data._links) {
         data._links = [];
@@ -146,6 +209,7 @@ app.get('/:title', (req, res) => {
             data._view = '404';
         }
         data.content = md.render(data.content);
+        data.loggedIn = req.session.loggedIn;
         res.render(data._view, data);
     } catch (e) {
         res.send(e);
@@ -155,6 +219,7 @@ app.get('/:title', (req, res) => {
 app.get('/', (req, res) => {
     const data = JSON.parse(fs.readFileSync(__dirname + '/data/startpage.json', 'utf-8'));    
     data.content = md.render(data.content);
+    data.loggedIn = req.session.loggedIn;
     res.render(data._view, data);
 });  
 

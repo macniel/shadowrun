@@ -13,12 +13,30 @@
         <h1>
             {{title}}
         </h1>
+       <div class="button-group">
+        {{#if loggedIn}}
+        <button onclick="logout()" class="iec_Symbols">⏻</button>
+        <script>
+            function logout() {
+                location.href = '/logout';
+            }
+        </script>
         <button onclick="edit('{{title}}')">edit</button>
         <script>
             function edit(fileName) {
                 location.href = '/edit?file='+ fileName;
             }
         </script>
+        {{else}}
+        <button onclick="login()" class="iec_Symbols">⏽</button>
+        <script>
+            function login() {
+                location.href = '/login';
+            }
+        </script>
+        {{/if}}
+        </div>
+        
     </header>
     {{> (lookup . '_view')}}
 
