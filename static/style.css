@@ -10,6 +10,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'WarText';
+    src: url('/WarText.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: black;
     padding: 0;
@@ -208,12 +215,22 @@ td {
     font-weight: lighter;
 }
 
-* {
-    color: var(--text);
+header * {
+    color: var(--chrome-text);
     font-family: rexlia, cursive;
     font-size: 12pt;
     line-height: 12pt;
     text-shadow: 1px 1px 3px var(--accent);
+}
+
+* {
+    color: var(--text);
+    font-family: 'WarText', cursive;
+    font-size: 24pt;
+    line-height: 24pt;
+    color: white;
+    text-shadow: 1px 1px 3px var(--text);
+    
 }
 
 label {
