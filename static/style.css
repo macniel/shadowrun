@@ -300,6 +300,7 @@ header {
     left: 0;
     right: 0;
     padding: 12pt;
+    z-index: 5;
 }
 
 footer {
