@@ -230,7 +230,7 @@ header * {
     line-height: 24pt;
     color: white;
     text-shadow: 1px 1px 3px var(--text);
-    
+    word-wrap: break-word;
 }
 
 label {
@@ -310,4 +310,8 @@ footer {
     right: 0;
     padding: 0 12pt;
     margin: 0;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
 }
