@@ -128,10 +128,11 @@ button::before {
 }
 
 .meta {
-    margin: 12pt -12pt;
-    padding: 0 12pt;
     color: var(--chrome-text);
     background-color: var(--chrome);
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
 }
 
 hr {
@@ -206,9 +207,11 @@ table:after {
     content: '';
 }
 
-td strong {
+strong {
     color: var(--chrome-text);
+    font-weight: normal;
 }
+
 td {
     font-weight: lighter;
 }
