@@ -9,66 +9,11 @@
     </p>
 
     <label>Type of Test:
-        <label for="type" class="select">
-            <select id="type" name="type" onchange="updateForm(event)">
-                <option value="healing">Healing Test</option>
-                <option value="melee">Melee Attack Test</option>
-                <option value="matrix">Matrix Test</option>
-                <option value="ranged">Ranged Attack Test</option>
-            </select>
-        </label>
-        <input type="checkbox" name="opposedTest" id="opposedTest"><label class="checkbox" for="opposedTest">Is Opposed
-            Test</label>
+        {{> components/select name="type" options=this.tests}}
+        {{> components/checkbox name="opposedTest" title="Is Opposed Test"}}
     </label>
-<div>
-    <h2>Situation Modifiers</h2>
-                Remember that you can compensate environmental modifiers, to do that just choose the modified option
-                intead.
-                <br />
-                <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-
-                    <label>Visibility
-                        <label for="visibility" class="select"><select id="visibility" name="visibility">
-                                <option value="0">Clear</option>
-                                <option value="-1">Light Rain/Fog/Smoke</option>
-                                <option value="-3">Moderate Rain/Fog/Smoke</option>
-                                <option value="-6">Heavy Rain/Fog/Smoke</option>
-                            </select></label>
-                    </label>
-
-
-                    <label>Light / Glare
-                        <label for="light" class="select"><select id="light" name="light">
-                                <option value="0">Full Light/No Glare</option>
-                                <option value="-1">Partial Light/Weak Glare</option>
-                                <option value="-3">Dim Light /Moderate Glare</option>
-                                <option value="-6">Total Darkness /Blinding Glare</option>
-                            </select></label>
-                    </label>
-
-
-                    <label>Wind
-                        <label for="wind" class="select"><select id="wind" name="wind">
-                                <option value="0">None or Light Breeze</option>
-                                <option value="-1">Light Winds</option>
-                                <option value="-3">Moderate Winds</option>
-                                <option value="-6">Strong Winds</option>
-                            </select></label>
-                    </label>
-
-                    <label>Range
-                        <label for="range" class="select"><select id="range" name="range">
-                                <option value="0">Short</option>
-                                <option value="-1">Medium</option>
-                                <option value="-3">Long</option>
-                                <option value="-6">Extreme</option>
-                            </select></label>
-                    </label>
-
-
-                </div>
-                <p>Total Modifier due to Environmental circumstances: <output calculated-value="environmental"></span>
-                </p>
+    <div>
+        {{> calc_situation}}
     </div>
     <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; grid-gap: 20px;">
         <div>
@@ -78,8 +23,8 @@
             <div>
                 Wound Modifiers
                 <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                    <label>Physical Damage: <input name="aphysical" value="0" /></label>
-                    <label>Stun Damage: <input name="astun" value="0" /></label>
+                    {{> components/number title='Physical Damage:' name='aphysical' default='0'}}
+                    {{> components/number title='Stun Damage:' name='astun' default='0'}}
                 </div>
                 <p>Total Modifier due to wounds: <span calculated-value="awounds"></span></p>
             </div>
@@ -88,235 +33,10 @@
                 Healing Modifiers
             </div>
             <div if="type==='melee'">
-        <table>
-                    <thead>
-                        <tr>
-                            <th>Melee Modifiers Table</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox" id="acharging" name="acharging"><label for="acharging"
-                                    class="input">Attacker making a charging attack</label></td>
-                            <td>+2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="aprone" name="aprone"><label for="aprone"
-                                    class="input">Attacker prone</label></td>
-                            <td>-1</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="ameleeCalledshot" name="ameleeCalledshot"><label class="input"
-                                    for="ameleeCalledshot">Attacker making a Called Shot</label></td>
-                            <td>-4</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="asplitAttack" name="asplitAttack"><label for="asplitAttack"
-                                    class="input">Character attacking multiple targets</label></td>
-                            <td>Split dice pool</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="ahighground" name="ahighground"><label for="ahighground"
-                                    class="input">Character has superior position</label></td>
-                            <td>+2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="aoffhand" name="aoffhand"><label for="aoffhand"
-                                    class="input">Character using off-hand weapon</label></td>
-                            <td>-2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked id="meleewoundedModifier" name="meleewoundedModifier"><label
-                                    for="meleewoundedModifier" class="input">Attacker wounded</label></td>
-                            <td><output calculated-value="awounds"></output></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="ameleeEnvironmental" name="ameleeEnvironmental"><label for="ameleeEnvironmental"
-                                    class="input">Environmental modifiers</label></td>
-                            <td><output calculated-value="meleeEnvironmental"></output></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="aflanking" name="aflanking"><label for="aflanking"
-                                    class="input">Attacker has friends in melee</label></td>
-                            <td>+<input type="number" min="0" class="innerinput" id="aflankingValue" name="aflankingValue" value="0"> or Teamwork</td>
-                        </tr>
-                         <tr>
-                            <td><input type="checkbox" id="disprone" name="disprone"><label for="disprone"
-                                    class="input">Opponent prone</label></td>
-                            <td>+1</td>
-                        </tr>
-                         <tr>
-                            <td><input type="checkbox" id="atouchonly" name="atouchonly"><label for="atouchonly"
-                                    class="input">Touch-only attack</label></td>
-                            <td>+2</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-                <h2>Total Modifiers</h2>
-                <div>
-                    Dicepool: <output calculated-value="meleeDicepool"></output>
-                    <span if="form['asplitAttack'].checked"><br/>split dice pool per target</span>
-                    <span if="form['atouchonly'].checked"><br/>wins on tie</span><br />
-                </div>        
+                {{> calc_melee}}
             </div>
             <div if="type==='ranged'">
-                <label>Fire Mode
-                    <label for="firemode" class="select">
-                        <select name="firemode" onchange="updateForm(event)">
-                            <option value="SS">Single Shot</option>
-                            <option value="SA">Semi Auto</option>
-                            <option value="SB">Semi Burst</option>
-                            <option value="BF">Burst Fire</option>
-                            <option value="LB">Long Burst</option>
-                            <option value="FA">Full Auto</option>
-                            <option value="SF">Supressive Fire</option>
-                        </select>
-                    </label>
-
-                    <div if="firemode === 'SS'">
-                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                            <span>Defense Modifier: 0</span>
-                            <span>Number of Rounds: 1</span>
-                            <span>Notes: No Recoil</span>
-                        </div>
-                    </div>
-                    <div if="firemode === 'SA'">
-                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                            <span>Defense Modifier: 0</span>
-                            <span>Number of Rounds: 1</span>
-                            <span>Notes:</span>
-                        </div>
-                    </div>
-                    <div if="firemode === 'SB'">
-                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                            <span>Defense Modifier: -2</span>
-                            <span>Number of Rounds: 3</span>
-                            <span>Notes:</span>
-                        </div>
-                    </div>
-                    <div if="firemode === 'BF'">
-                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                            <span>Defense Modifier: -2</span>
-                            <span>Number of Rounds: 3</span>
-                            <span>Notes:</span>
-                        </div>
-                    </div>
-                    <div if="firemode === 'LB'">
-                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                            <span>Defense Modifier: -5</span>
-                            <span>Number of Rounds: 6</span>
-                            <span>Notes: or Full Auto (Simple)</span>
-                        </div>
-                    </div>
-                    <div if="firemode === 'FA'">
-                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                            <span>Defense Modifier: -9</span>
-                            <span>Number of Rounds: 10</span>
-                            <span>Notes:</span>
-                        </div>
-                    </div>
-                    <div if="firemode === 'SF'">
-                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                            <span>Defense Modifier: Duck or Cover</span>
-                            <span>Number of Rounds: 20</span>
-                            <span>Notes: No Recoil</span>
-                        </div>
-                    </div>
-                </label>
-
-                <h2>Recoil</h2>
-                <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                    <label>Weapon Compensation
-                        <input type="number" min="0" name="rc" />
-                    </label>
-
-                    <label>Body/Strength of Attacker
-                        <input type="number" min="0" name="brc" />
-                    </label>
-
-                    <label>Continues Rounds fired
-                        <input type="number" min="0" name="prc" />
-                    </label>
-
-                    <label>Rounds to be fired<br />
-                        <output type="number" min="0" name="fmr" calculated-value="firemodeRounds" />
-                    </label>
-                </div>
-                <p>
-                    Total Modifier due to Recoil: <output calculated-value="totalRecoil"></output>
-                </p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Situational Modifiers Table</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox" id="imaging" name="imaging"><label for="imaging"
-                                    class="input">Attacker firing from cover with imaging device</label></td>
-                            <td>-3</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="moving" name="moving"><label for="moving"
-                                    class="input">Attacker firing from a moving vehicle</label></td>
-                            <td>-2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="inMelee" name="inMelee"><label class="input"
-                                    for="inMelee">Attacker in melee combat</label></td>
-                            <td>-3</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="running" name="running"><label for="running"
-                                    class="input">Attacker running</label></td>
-                            <td>-2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="offHand" name="offHand"><label for="offHand"
-                                    class="input">Attacker using off-hand weapon</label></td>
-                            <td>-2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked id="woundedModifier" name="woundedModifier"><label
-                                    for="woundedModifier" class="input">Attacker wounded</label></td>
-                            <td><output calculated-value="wounds"></output></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="blindfire" name="blindfire"><label for="blindfire"
-                                    class="input">Blind fire</label></td>
-                            <td>-6</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="calledShot" name="calledShot"><label for="calledShot"
-                                    class="input">Called shot</label></td>
-                            <td>-4</td>
-                        </tr>
-                        <tr>
-                            <td><input type="number" min="0" class="innerinput" id="takeAim" name="takeAim" value="0"><label
-                                    for="takeAim" class="input">Previously aimed with Take Aim</label></td>
-                            <td>+1 Dice Pool, +1 Accurracy</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="hasSmartgun" name="hasSmartgun"><label for="hasSmartgun"
-                                    class="input">Wireless Smartgun</label></td>
-                            <td><label class="select" for="smartgun"><select id="smartgun" name="smartgun">
-                                        <option value="+1">as Gear</option>
-                                        <option value="+2">as Implant</option>
-                                    </select></label></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-                <h2>Total Modifiers</h2>
-                <div>
-                    Dicepool: <output calculated-value="rangedDicepool"></output><br />
-                    Accuracy: <output calculated-value="rangedAccuracy"></output><br />
-                    Defense Modifier: <output calculated-value="rangedDefense"></output><br />
-                </div>
+                {{> calc_ranged}}
 
             </div>
             <div if="type==='matrix'">
@@ -324,128 +44,7 @@
             </div>
         </div>
         <div if="opposedTest">
-            <h1 if="opposedTest">
-                Defender
-            </h1>
-            <div>
-                Wound Modifiers
-                <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                    <label>Physical Damage: <input name="dphysical" value="0" /></label>
-                    <label>Stun Damage: <input name="dstun" value="0" /></label>
-                </div>
-                <p>Total Modifier due to wounds: <span calculated-value="dwounds"></span></p>
-            </div>
-            <table>
-                    <thead>
-                        <tr>
-                            <th>Defense Modifiers Table</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox" id="dmoving" name="dmoving"><label for="dmoving"
-                                    class="input">Defender inside a moving vehicle</label></td>
-                            <td>+3</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="dprone" name="dprone"><label for="dprone"
-                                    class="input">Defender prone</label></td>
-                            <td>-2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="dunaware" name="dunaware"><label class="input"
-                                    for="dunaware">Defender unaware of attack</label></td>
-                            <td>No defense possible</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked id="dwoundedModifier" name="dwoundedModifier"><label
-                                    for="dwoundedModifier" class="input">Defender wounded</label></td>
-                            <td><output calculated-value="dwounds"></output></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="areach" name="areach"><label for="areach"
-                                    class="input">Attacker has longer Reach</label></td>
-                            <td>-<input class="innerinput" type="number" min="0" name="areachnethits" value="0"> Net Hits</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="dreach" name="dreach"><label for="dreach"
-                                    class="input">Defender has longer Reach</label></td>
-                            <td>+<input class="innerinput" type="number" min="0" name="dreachnethits" value="0"> Net Hits</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="dcharge" name="dcharge"><label for="dcharge"
-                                    class="input">Defender Recieving a Charge</label></td>
-                            <td>+1</td>
-                        </tr>
-                        <tr>
-                            <td><input type="number" min="0" class="innerinput" id="ddefended" name="ddefended" value="0"><label
-                                    for="ddefended" class="input">Previously defended against attack</label></td>
-                            <td>-1 per previous attack</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="anarrow" name="anarrow"><label for="anarrow"
-                                    class="input">Attacker firing flechette shotgun on narrow spread</label></td>
-                            <td>-1</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="amedium" name="amedium"><label for="amedium"
-                                    class="input">Attacker firing flechette shotgun on medium spread</label></td>
-                            <td>-3</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="awide" name="awide"><label for="awide"
-                                    class="input">Attacker firing flechette shotgun on wide spread</label></td>
-                            <td>-5</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="afa" name="afa" checked-when="firemode == 'FA'" disabled><label for="afa"
-                                    class="input">Attacker firing full-auto (Complex)</label></td>
-                            <td>-9</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="alb" name="alb" checked-when="firemode == 'LB'" disabled><label for="alb"
-                                    class="input">Attacker firing long burst or full-auto</label></td>
-                            <td>-5</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="asa" name="asa" checked-when="firemode == 'SB' || firemode == 'BF'" disabled><label for="asa"
-                                    class="input">Attacker firing burst or semi-auto burst</label></td>
-                            <td>-2</td>
-                        </tr>
-                        
-                        <tr>
-                            <td><input type="checkbox" id="dinmelee" name="dinmelee"><label for="dinmelee"
-                                    class="input">Defender in melee targeted by ranged attack</label></td>
-                            <td>-3</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="drunning" name="drunning"><label for="drunning"
-                                    class="input">Defender running</label></td>
-                            <td>+2</td>
-                        </tr>
-                         <tr>
-                            <td><input type="checkbox" id="dgoodcover" name="dgoodcover"><label for="dgoodcover"
-                                    class="input">Defender/Target has Good Cover</label></td>
-                            <td>+4</td>
-                        </tr>
-                         <tr>
-                            <td><input type="checkbox" id="dpartialcover" name="dpartialcover"><label for="dpartialcover"
-                                    class="input">Defender/Target has Partial Cover</label></td>
-                            <td>+2</td>
-                        </tr>
-                         <tr>
-                            <td><input type="checkbox" id="daoe" name="daoe"><label for="daoe"
-                                    class="input">Targeted by area-effect attack</label></td>
-                            <td>-2</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                 <h2>Total Modifiers</h2>
-                <div>
-                    Dicepool: <output calculated-value="defenseRangedDicepool"></output><br />
-                    
-                </div>
+            {{> calc_opposed}}
         </div>
     </div>
 
@@ -480,7 +79,7 @@
 
             })
 
-             form.querySelectorAll('[checked-when]').forEach(element => {
+            form.querySelectorAll('[checked-when]').forEach(element => {
                 const expression = element.getAttribute('checked-when');
                 element.checked = eval(expression);
 
@@ -504,7 +103,7 @@
         }
 
         meleeEnvironmental = function (element) {
-             const modifiers = [
+            const modifiers = [
                 parseInt(form['visibility'].value),
                 parseInt(form['light'].value)
             ];
@@ -579,7 +178,7 @@
 
 
 
-        defenseRangedDicepool = function(element) {
+        defenseRangedDicepool = function (element) {
             return dwounds() + dSituationalDPModifier();
         }
 
@@ -653,7 +252,7 @@
             return value;
         }
 
-        
+
         ameleeSituationalDPModifier = function (element) {
             let value = 0;
             if (form['acharging'].checked)

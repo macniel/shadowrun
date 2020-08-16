@@ -337,6 +337,7 @@ input[type=checkbox]+label::before {
     width: 20px;
     height: 20px;
     content: '';
+    vertical-align: 0px;
     display: inline-block;
     margin-right: 20px;
 }
@@ -346,6 +347,7 @@ input[type=checkbox]:checked+label::before {
     width: 20px;
     height: 20px;
     content: '✓';
+    vertical-align: 0px;
     display: inline-block;
 }
 

@@ -1,0 +1,114 @@
+<h1 if="opposedTest">
+    Defender
+</h1>
+<div>
+    Wound Modifiers
+    <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+        {{> components/number title='Physical Damage:' name='dphysical' default='0'}}
+        {{> components/number title='Stun Damage:' name='dstun' default='0'}}
+    </div>
+    <p>Total Modifier due to wounds: <span calculated-value="dwounds"></span></p>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Defense Modifiers Table</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{> components/checkbox title='Defender inside a moving vehicle' name='dmoving'}}</td>
+            <td>+3</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender prone' name='dprone'}}</td>
+            <td>-2</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender unaware of attack' name='dunaware'}}</td>
+            <td>No defense possible</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender wounded' name='dwoundedModifier'}}</td>
+            <td><output calculated-value="dwounds"></output></td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Attacker has longer Reach' name='areach'}}</td>
+            <td>-<input class="innerinput" type="number" min="0" name="areachnethits" value="0"> Net Hits
+            </td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender has longer Reach' name='dreach'}}</td>
+            <td>+<input class="innerinput" type="number" min="0" name="dreachnethits" value="0"> Net Hits
+            </td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender Recieving a Charge' name='dcharge'}}</td>
+            <td>+1</td>
+        </tr>
+        <tr>
+            <td>{{> components/inumber default="0" min="0" name="ddefended" title="Previously defended against attack"}}
+            </td>
+            <td>-1 per previous attack</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Attacker firing flechette shotgun on narrow spread' name='anarrow'}}
+            </td>
+            <td>-1</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Attacker firing flechette shotgun on medium spread' name='amedium'}}
+            </td>
+            <td>-3</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Attacker firing flechette shotgun on wide spread' name='awide'}}
+            </td>
+            <td>-5</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Attacker firing full-auto (Complex)' name='afa' when="firemode =='FA'" disabled=true}}
+            </td>
+            <td>-9</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Attacker firing long burst or full-auto' name='alb' when="firemode =='LB'" disabled=true}}
+            </td>
+            <td>-5</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Attacker firing burst or semi-auto burst' name='asa' when="firemode =='BF'" disabled=true}}
+            </td>
+            <td>-2</td>
+        </tr>
+
+        <tr>
+            <td>{{> components/checkbox title='Defender in melee targeted by ranged attack' name='dinmelee'}}
+            </td>
+            <td>-3</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender running' name='drunning'}}</td>
+            <td>+2</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender/Target has Good Cover' name='dgoodcover'}}</td>
+            <td>+4</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Defender/Target has Partial Cover' name='dpartialcover'}}
+            </td>
+            <td>+2</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Targeted by area-effect attack' name='daoe'}}</td>
+            <td>-2</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Total Modifiers</h2>
+<div>
+    Dicepool: <output calculated-value="defenseRangedDicepool"></output><br />
+
+</div>

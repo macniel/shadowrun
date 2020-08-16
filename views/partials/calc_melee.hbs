@@ -1,0 +1,62 @@
+ <table>
+                    <thead>
+                        <tr>
+                            <th>Melee Modifiers Table</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{> components/checkbox name="archarging" title="Attacker making a charging attack"}}
+                                <input type="checkbox" id="acharging" name="acharging"></td>
+                            <td>+2</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="aprone" title="Attacker prone"}}</td>
+                            <td>-1</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="ameleeCalledshot" title="Attacker making a Called Shot"}}</td>
+                            <td>-4</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="asplitAttack" title="Character attacking multiple targets"}}</td>
+                            <td>Split dice pool</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="ahighground" title="Character has superior position"}}</td>
+                            <td>+2</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="aoffhand" title="Character using off-hand weapon"}}</td>
+                            <td>-2</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="meleewoundedModifier" title="Attacker wounded"}}</td>
+                            <td><output calculated-value="awounds"></output></td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="ameleeEnvironmental" title="Environmental modifiers"}}</td>
+                            <td><output calculated-value="meleeEnvironmental"></output></td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="aflanking" title="Attacker has friends in melee"}}</td>
+                            <td>+{{> components/inumber name="aflankingValue" title="or Teamwork" default="0"}}</td>
+                        </tr>
+                         <tr>
+                            <td>{{> components/checkbox name="disprone" title="Opponent prone"}}</td>
+                            <td>+1</td>
+                        </tr>
+                         <tr>
+                            <td>{{> components/checkbox name="atouchonly" title="Touch-only attack"}}</td>
+                            <td>+2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h2>Total Modifiers</h2>
+                <div>
+                    Dicepool: <output calculated-value="meleeDicepool"></output>
+                    <span if="form['asplitAttack'].checked"><br/>split dice pool per target</span>
+                    <span if="form['atouchonly'].checked"><br/>wins on tie</span><br />
+                </div>        

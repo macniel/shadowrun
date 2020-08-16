@@ -1,0 +1,155 @@
+<label>Fire Mode
+                    <label for="firemode" class="select">
+                        <select name="firemode" onchange="updateForm(event)">
+                            <option value="SS">Single Shot</option>
+                            <option value="SA">Semi Auto</option>
+                            <option value="SB">Semi Burst</option>
+                            <option value="BF">Burst Fire</option>
+                            <option value="LB">Long Burst</option>
+                            <option value="FA">Full Auto</option>
+                            <option value="SF">Supressive Fire</option>
+                        </select>
+                    </label>
+
+                    <div if="firemode === 'SS'">
+                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                            <span>Defense Modifier: 0</span>
+                            <span>Number of Rounds: 1</span>
+                            <span>Notes: No Recoil</span>
+                        </div>
+                    </div>
+                    <div if="firemode === 'SA'">
+                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                            <span>Defense Modifier: 0</span>
+                            <span>Number of Rounds: 1</span>
+                            <span>Notes:</span>
+                        </div>
+                    </div>
+                    <div if="firemode === 'SB'">
+                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                            <span>Defense Modifier: -2</span>
+                            <span>Number of Rounds: 3</span>
+                            <span>Notes:</span>
+                        </div>
+                    </div>
+                    <div if="firemode === 'BF'">
+                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                            <span>Defense Modifier: -2</span>
+                            <span>Number of Rounds: 3</span>
+                            <span>Notes:</span>
+                        </div>
+                    </div>
+                    <div if="firemode === 'LB'">
+                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                            <span>Defense Modifier: -5</span>
+                            <span>Number of Rounds: 6</span>
+                            <span>Notes: or Full Auto (Simple)</span>
+                        </div>
+                    </div>
+                    <div if="firemode === 'FA'">
+                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                            <span>Defense Modifier: -9</span>
+                            <span>Number of Rounds: 10</span>
+                            <span>Notes:</span>
+                        </div>
+                    </div>
+                    <div if="firemode === 'SF'">
+                        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                            <span>Defense Modifier: Duck or Cover</span>
+                            <span>Number of Rounds: 20</span>
+                            <span>Notes: No Recoil</span>
+                        </div>
+                    </div>
+                </label>
+
+                <h2>Recoil</h2>
+                <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                    <label>Weapon Compensation
+                        <input type="number" min="0" name="rc" />
+                    </label>
+
+                    <label>Body/Strength of Attacker
+                        <input type="number" min="0" name="brc" />
+                    </label>
+
+                    <label>Continues Rounds fired
+                        <input type="number" min="0" name="prc" />
+                    </label>
+
+                    <label>Rounds to be fired<br />
+                        <output type="number" min="0" name="fmr" calculated-value="firemodeRounds" />
+                    </label>
+                </div>
+                <p>
+                    Total Modifier due to Recoil: <output calculated-value="totalRecoil"></output>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Situational Modifiers Table</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" id="imaging" name="imaging"><label for="imaging"
+                                    class="input">Attacker firing from cover with imaging device</label></td>
+                            <td>-3</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="moving" name="moving"><label for="moving"
+                                    class="input">Attacker firing from a moving vehicle</label></td>
+                            <td>-2</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="inMelee" name="inMelee"><label class="input"
+                                    for="inMelee">Attacker in melee combat</label></td>
+                            <td>-3</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="running" name="running"><label for="running"
+                                    class="input">Attacker running</label></td>
+                            <td>-2</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="offHand" name="offHand"><label for="offHand"
+                                    class="input">Attacker using off-hand weapon</label></td>
+                            <td>-2</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" checked id="woundedModifier" name="woundedModifier"><label
+                                    for="woundedModifier" class="input">Attacker wounded</label></td>
+                            <td><output calculated-value="wounds"></output></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="blindfire" name="blindfire"><label for="blindfire"
+                                    class="input">Blind fire</label></td>
+                            <td>-6</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="calledShot" name="calledShot"><label for="calledShot"
+                                    class="input">Called shot</label></td>
+                            <td>-4</td>
+                        </tr>
+                        <tr>
+                            <td><input type="number" min="0" class="innerinput" id="takeAim" name="takeAim" value="0"><label
+                                    for="takeAim" class="input">Previously aimed with Take Aim</label></td>
+                            <td>+1 Dice Pool, +1 Accurracy</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="hasSmartgun" name="hasSmartgun"><label for="hasSmartgun"
+                                    class="input">Wireless Smartgun</label></td>
+                            <td><label class="select" for="smartgun"><select id="smartgun" name="smartgun">
+                                        <option value="+1">as Gear</option>
+                                        <option value="+2">as Implant</option>
+                                    </select></label></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h2>Total Modifiers</h2>
+                <div>
+                    Dicepool: <output calculated-value="rangedDicepool"></output><br />
+                    Accuracy: <output calculated-value="rangedAccuracy"></output><br />
+                    Defense Modifier: <output calculated-value="rangedDefense"></output><br />
+                </div>

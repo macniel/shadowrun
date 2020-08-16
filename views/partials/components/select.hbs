@@ -1,0 +1,7 @@
+ <label for="{{name}}" class="select">
+    <select id="{{name}}" name="{{name}}" onchange="updateForm(event)">
+        {{#each options}}
+            <option value="{{@key}}">{{this}}</option>
+        {{/each}}
+    </select>
+</label>

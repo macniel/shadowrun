@@ -88,6 +88,12 @@ app.get('/calculate', (req, res) => {
     const data = {
     _view: 'calc',
     layout: 'calc_layout',
+    tests: {
+        healing: 'Healing Test',
+        melee: 'Melee Attack Test',
+        matrix: 'Matrix Test',
+        ranged: 'Ranged Attack Test',
+    }
     }
     res.render(data._view, data);
 })
