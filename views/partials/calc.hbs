@@ -58,24 +58,13 @@
 
     <script>
         window.form = document.getElementById('form');
-        let type;
-        let firemode;
-        let terrain;
-        let opposedTest = false;
-        let situation;
-        let jumpedIn = false;
+
 
         form.addEventListener('change', () => {
             updateForm();
         })
         updateForm = function () {
-            type = form['type'].value;
-            firemode = form['firemode'].value;
-            opposedTest = form['opposedTest'].checked;
-            terrain = form['terrain'].value;
-            situation = form['situation'].value;
-            jumpedIn = form['jumpedIn'].checked;
-
+          
             form.querySelectorAll('[if]').forEach(element => {
                 ifFormula = element.getAttribute('if');
 
@@ -102,10 +91,10 @@
 
         environmental = function (element) {
             const modifiers = [
-                parseInt(form['visibility'].value),
-                parseInt(form['range'].value),
-                parseInt(form['wind'].value),
-                parseInt(form['light'].value)
+                parseInt(visibility),
+                parseInt(range),
+                parseInt(wind),
+                parseInt(light)
             ];
             let standingModifier = Math.min(...modifiers);
             const twoOrMoreThreshold = modifiers.filter(predicate => predicate === -6).length > 1;
@@ -117,8 +106,8 @@
 
         meleeEnvironmental = function (element) {
             const modifiers = [
-                parseInt(form['visibility'].value),
-                parseInt(form['light'].value)
+                parseInt(visibility),
+                parseInt(light)
             ];
             let standingModifier = Math.min(...modifiers);
             const twoOrMoreThreshold = modifiers.filter(predicate => predicate === -6).length > 1;
@@ -129,8 +118,8 @@
         }
 
         awounds = function (element) {
-            const physicalModifier = parseInt(form['aphysical'].value);
-            const stunModifier = parseInt(form['astun'].value);
+            const physicalModifier = parseInt(aphysical);
+            const stunModifier = parseInt(astun);
 
             const totalModifier = Math.floor(Math.round(physicalModifier / 3)) + Math.floor(Math.round(stunModifier / 3));
 
@@ -138,8 +127,8 @@
         }
 
         dwounds = function (element) {
-            const physicalModifier = parseInt(form['dphysical'].value);
-            const stunModifier = parseInt(form['dstun'].value);
+            const physicalModifier = parseInt(dphysical);
+            const stunModifier = parseInt(dstun);
 
             const totalModifier = Math.floor(Math.round(physicalModifier / 3)) + Math.floor(Math.round(stunModifier / 3));
 
@@ -147,7 +136,7 @@
         }
 
         vwounds = function (element) {
-            const physicalModifier = parseInt(form['vdamage'].value);
+            const physicalModifier = parseInt(vdamage);
            
             const totalModifier = Math.floor(Math.round(physicalModifier / 3));
 
@@ -156,43 +145,43 @@
 
         dSituationalDPModifier = function (element) {
             let value = 0;
-            if (form['dmoving'].checked)
+            if (dmoving)
                 value += 3;
-            if (form['dprone'].checked)
+            if (dprone)
                 value += -2;
-            if (form['dunaware'].checked)
+            if (dunaware)
                 return NaN;
-            if (form['dwoundedModifier'].checked)
+            if (dwoundedModifier)
                 value += dwounds();
-            if (form['areach'].checked)
-                value += -parseInt(form['areachnethits'].value);
-            if (form['dreach'].checked)
-                value += parseInt(form['dreachnethits'].value);
-            if (form['dcharge'].checked)
+            if (areach)
+                value += -parseInt(areachnethits);
+            if (dreach)
+                value += parseInt(dreachnethits);
+            if (dcharge)
                 value += +1;
-            if (form['ddefended'].value != '0')
-                value += -parseInt(form['ddefended'].value);
-            if (form['anarrow'].checked)
+            if (ddefended != '0')
+                value += -parseInt(ddefended);
+            if (anarrow)
                 value += -1;
-            if (form['amedium'].checked)
+            if (amedium)
                 value += -3;
-            if (form['awide'].checked)
+            if (awide)
                 value += -5;
-            if (form['afa'].checked)
+            if (afa)
                 value += -9;
-            if (form['alb'].checked)
+            if (alb)
                 value += -5;
-            if (form['asa'].checked)
+            if (asa)
                 value += -2;
-            if (form['dinmelee'].checked)
+            if (dinmelee)
                 value += -3;
-            if (form['drunning'].checked)
+            if (drunning)
                 value += 2;
-            if (form['dgoodcover'].checked)
+            if (dgoodcover)
                 value += 4;
-            if (form['dpartialcover'].checked)
+            if (dpartialcover)
                 value += 2;
-            if (form['daoe'].checked)
+            if (daoe)
                 value += -2;
             return value;
         }
@@ -223,10 +212,10 @@
 
         totalRecoil = function (element) {
 
-            const bodyOrStrengthModifier = parseInt(form['brc'].value) || 0;
-            const weaponModifier = parseInt(form['rc'].value) || 0;
-            const progressiveModifier = parseInt(form['prc'].value) || 0;
-            const shotsFired = parseInt(form['fmr'].value) || 0;
+            const bodyOrStrengthModifier = parseInt(brc) || 0;
+            const weaponModifier = parseInt(rc) || 0;
+            const progressiveModifier = parseInt(prc) || 0;
+            const shotsFired = parseInt(firemodeRounds) || 0;
 
             const poolAgainstRecoil = 1 + Math.ceil(bodyOrStrengthModifier / 3) + weaponModifier;
             const roundsFired = progressiveModifier + shotsFired;
@@ -242,61 +231,61 @@
 
         aSituationalDPModifier = function (element) {
             let value = 0;
-            if (form['imaging'].checked)
+            if (imaging)
                 value += -3;
-            if (form['moving'].checked)
+            if (moving)
                 value += -2;
-            if (form['inMelee'].checked)
+            if (inMelee)
                 value += -3;
-            if (form['running'].checked)
+            if (running)
                 value += -2;
-            if (form['offHand'].checked)
+            if (offHand)
                 value += -2;
-            if (form['woundedModifier'].checked)
+            if (woundedModifier)
                 value += awounds();
-             if (form['renvironmental'].checked)
+             if (renvironmental)
                 value += environmental();
-            if (form['blindfire'].checked)
+            if (blindfire)
                 value += -6;
-            if (form['calledShot'].checked)
+            if (calledShot)
                 value += -4;
-            if (form['takeAim'].value != '0')
-                value += parseInt(form['takeAim'].value);
-            if (form['hasSmartgun'].checked)
-                value += parseInt(form['smartgun'].value);
+            if (takeAim != '0')
+                value += parseInt(takeAim);
+            if (hasSmartgun)
+                value += parseInt(smartgun);
             return value;
         }
 
 
         aSituationalLimitModifier = function (element) {
             let value = 0;
-            if (form['takeAim'].value != '0')
-                value += parseInt(form['takeAim'].value);
+            if (takeAim != '0')
+                value += parseInt(takeAim);
             return value;
         }
 
 
         ameleeSituationalDPModifier = function (element) {
             let value = 0;
-            if (form['acharging'].checked)
+            if (acharging)
                 value += 2;
-            if (form['aprone'].checked)
+            if (aprone)
                 value += -1;
-            if (form['ameleeCalledshot'].checked)
+            if (ameleeCalledshot)
                 value += -4;
-            if (form['asplitAttack'].checked)
+            if (asplitAttack)
                 value += 0;
-            if (form['ahighground'].checked)
+            if (ahighground)
                 value += 2;
-            if (form['meleewoundedModifier'].checked)
+            if (meleewoundedModifier)
                 value += awounds();
-            if (form['aoffhand'].checked)
+            if (aoffhand)
                 value += -2;
-            if (form['aflanking'].checked)
-                value += parseInt(form['aflankingValue'].value);
-            if (form['disprone'].checked)
+            if (aflanking)
+                value += parseInt(aflankingValue);
+            if (disprone)
                 value += 1;
-            if (form['atouchonly'].checked)
+            if (atouchonly)
                 value += 2;
             return value;
         }
@@ -346,14 +335,18 @@
 
         vehicleSituationalDPModifier = function() {
             let value = 0;
-            if (form['pimpaired'].checked)
+            if (pimpaired)
                 value += visibility();
-            if (form['plighting'].checked)
+            if (plighting)
                 value += lighting();
-            if (form['punaware'].checked)
-                return NaN;
-            if (form['pwounded'].checked)
+            if (phot)
+                value += 1;
+            if (pwounded)
                 value += awounds();
+            if (jumpedIn)
+                value += parseInt(rcc);
+            if (punaware)
+                return NaN;
             return value;
         }
 
@@ -363,19 +356,19 @@
 
         vehicleLimit = function() {
             let value = 0;
-            if (form['vwounded'].checked)
+            if (vwounded)
                 value += vwounds();
-            if (form['par'].checked)
+            if (par)
                 value += 1;
-            if (form['pvr'].checked)
+            if (pvr)
                 value += +2;
             return value;
         }
 
         vehicleThreshold = function() {
             let value = vehicleTerrainModifier();
-            if (form['jumpedIn'].checked) 
-                value += -parseInt(form['rcc'].value);
+            if (jumpedIn) 
+                value += -parseInt(rcc);
             let isExtreme = false;
 
             switch(situation) {
@@ -401,11 +394,11 @@
         }
 
         visibility = function() {
-            return parseInt(form['visibility'].value);
+            return parseInt(visibility);
         }
 
         lighting = function() {
-            return parseInt(form['light'].value);
+            return parseInt(light);
         }
 
         updateForm();

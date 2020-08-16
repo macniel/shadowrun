@@ -1,2 +1,12 @@
 <label>{{title}} <input name="{{name}}" type="number" value="{{default}}" /></label>
-                    
+<script>
+    Object.defineProperty(window, '{{name}}', {
+        get: function() {
+            return form['{{name}}'].value;
+        },
+        set: function(value) {
+            form['{{name}}'].value = value;
+        }
+    });
+        console.log('{{name}} property defined');
+</script>

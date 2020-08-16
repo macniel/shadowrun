@@ -1,12 +1,5 @@
 <label>Vehicle Test Threshold table
-    <label for="situation" class="select">
-        <select name="situation" onchange="updateForm(event)">
-            <option value="easy">Easy</option>
-            <option value="average">Average</option>
-            <option value="hard">Hard</option>
-            <option value="extreme">Extreme</option>
-        </select>
-    </label>
+    {{> components/select name="situation" options=this.vehicleSituation}}
     <div if="situation === 'easy'">
         <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
             <span>Threshold: 1</span>
@@ -41,14 +34,8 @@
 
 
 <label>Terrain Modifiers table
-    <label for="terrain" class="select">
-        <select name="terrain" onchange="updateForm(event)">
-            <option value="open">Open</option>
-            <option value="light">Light</option>
-            <option value="restricted">Restricted</option>
-            <option value="tight">Tight</option>
-        </select>
-    </label>
+    {{> components/select name="terrain" options=this.vehicleTerrain}}
+    
     <div if="terrain === 'open'">
         <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
             <span>Modifier: 0</span>
@@ -100,6 +87,10 @@
                         <tr>
                             <td>{{> components/checkbox name="pwounded" title="Pilot is wounded"}}</td>
                             <td><output calculated-value="awounds"></output></td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="phot" title="Pilot is jumped in Hot"}}</td>
+                            <td>+1</td>
                         </tr>
                         <tr>
                             <td>{{> components/checkbox name="vwounded" title="Piloting damaged vehicle"}}</td>

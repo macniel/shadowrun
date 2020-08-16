@@ -5,3 +5,13 @@
         {{/each}}
     </select>
 </label>
+    <script type="text/javascript">
+        Object.defineProperty(window, '{{name}}', {
+            get: function() {
+                return form['{{name}}'].value;
+            },
+            set: function(value) {
+                form['{{name}}'].value = value;
+            }
+        });
+    </script>

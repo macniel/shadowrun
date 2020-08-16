@@ -118,6 +118,31 @@ app.get('/calculate', (req, res) => {
             '-1': 'Medium',
             '-3': 'Long',
             '-6': 'Extreme',
+        },
+        firemode: {
+            'SS': 'Single Shot',
+            'SA': 'Semi Auto',
+            'SB': 'Semi Burst',
+            'BF': 'Burst Fire',
+            'LB': 'Long Burst',
+            'FA': 'Full Auto',
+            'SF': 'Supressive Fire',
+        },
+        vehicleSituation: {
+            'easy': 'Easy',
+            'average': 'Average',
+            'hard': 'Hard',
+            'extreme': 'Extreme',
+        },
+        vehicleTerrain: {
+            'open': 'Open',
+            'light': 'Light',
+            'restricted': 'Restricted',
+            'tight': 'Tight',
+        },
+        smartgunPlatform: {
+            '+1': 'As Gear',
+            '+2': 'As Implant',
         }
     }
     res.render(data._view, data);

@@ -1,16 +1,5 @@
 <label>Fire Mode
-                    <label for="firemode" class="select">
-                        <select name="firemode" onchange="updateForm(event)">
-                            <option value="SS">Single Shot</option>
-                            <option value="SA">Semi Auto</option>
-                            <option value="SB">Semi Burst</option>
-                            <option value="BF">Burst Fire</option>
-                            <option value="LB">Long Burst</option>
-                            <option value="FA">Full Auto</option>
-                            <option value="SF">Supressive Fire</option>
-                        </select>
-                    </label>
-
+                    {{> components/select name="firemode" options=this.firemode}}
                     <div if="firemode === 'SS'">
                         <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
                             <span>Defense Modifier: 0</span>
@@ -64,18 +53,9 @@
 
                 <h2>Recoil</h2>
                 <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                    <label>Weapon Compensation
-                        <input type="number" min="0" name="rc" />
-                    </label>
-
-                    <label>Body/Strength of Attacker
-                        <input type="number" min="0" name="brc" />
-                    </label>
-
-                    <label>Continues Rounds fired
-                        <input type="number" min="0" name="prc" />
-                    </label>
-
+                    {{> components/number title="Weapon Compensation" min="0" default="0" name="rc"}}
+                    {{> components/number title="Body / Strength" min="0" default="0" name="brc"}}
+                    {{> components/number title="Progressive Recoil" min="0" default="0" name="prc"}}
                     <label>Rounds to be fired<br />
                         <output type="number" min="0" name="fmr" calculated-value="firemodeRounds" />
                     </label>
@@ -91,62 +71,48 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="checkbox" id="renvironmental" name="renvironmental" checked><label for="renvironmental"
-                                    class="input">Environmental Situation</label></td>
+                            <td>{{> components/checkbox title='Environmental Situation' name='renvironmental'}}</td>
                             <td><output calculated-value="environmental"></output></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="imaging" name="imaging"><label for="imaging"
-                                    class="input">Attacker firing from cover with imaging device</label></td>
+                            <td>{{> components/checkbox title='Attacker firing from cover with imaging device' name='imaging'}}</td>
                             <td>-3</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="moving" name="moving"><label for="moving"
-                                    class="input">Attacker firing from a moving vehicle</label></td>
+                            <td>{{> components/checkbox title='Attacker firing from a moving vehicle' name='moving'}}</td>
                             <td>-2</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="inMelee" name="inMelee"><label class="input"
-                                    for="inMelee">Attacker in melee combat</label></td>
+                            <td>{{> components/checkbox title='Attacker in melee combat' name='inMelee'}}</td>
                             <td>-3</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="running" name="running"><label for="running"
-                                    class="input">Attacker running</label></td>
+                            <td>{{> components/checkbox title='Attacker running' name='running'}}</td>
                             <td>-2</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="offHand" name="offHand"><label for="offHand"
-                                    class="input">Attacker using off-hand weapon</label></td>
+                            <td>{{> components/checkbox title='Attacker using off-hand weapon' name='offHand'}}</td>
                             <td>-2</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" checked id="woundedModifier" name="woundedModifier"><label
-                                    for="woundedModifier" class="input">Attacker wounded</label></td>
-                            <td><output calculated-value="wounds"></output></td>
+                            <td>{{> components/checkbox title='Attacker wounded' name='woundedModifier'}}</td>
+                            <td><output calculated-value="awounds"></output></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="blindfire" name="blindfire"><label for="blindfire"
-                                    class="input">Blind fire</label></td>
+                            <td>{{> components/checkbox title='Blind fire' name='blindfire'}}</td>
                             <td>-6</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="calledShot" name="calledShot"><label for="calledShot"
-                                    class="input">Called shot</label></td>
+                            <td>{{> components/checkbox title='Called Shot' name='calledShot'}}</td>
                             <td>-4</td>
                         </tr>
                         <tr>
-                            <td><input type="number" min="0" class="innerinput" id="takeAim" name="takeAim" value="0"><label
-                                    for="takeAim" class="input">Previously aimed with Take Aim</label></td>
+                            <td>{{> components/inumber title='Previously aimed with Take Aim' name='takeAim' default="0" min="0"}}</td>
                             <td>+1 Dice Pool, +1 Accurracy</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="hasSmartgun" name="hasSmartgun"><label for="hasSmartgun"
-                                    class="input">Wireless Smartgun</label></td>
-                            <td><label class="select" for="smartgun"><select id="smartgun" name="smartgun">
-                                        <option value="+1">as Gear</option>
-                                        <option value="+2">as Implant</option>
-                                    </select></label></td>
+                            <td>{{> components/checkbox title='Wireless Smartgun' name='hasSmartgun'}}</td>
+                            <td>{{> components/select name="smartgun" options=this.smartgunPlatform}}</td>
                         </tr>
                     </tbody>
                 </table>

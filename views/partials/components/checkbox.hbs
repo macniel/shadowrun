@@ -3,3 +3,13 @@
     <label class="input" for="{{name}}">
         {{title}}
     </label>
+    <script type="text/javascript">
+        Object.defineProperty(window, '{{name}}', {
+            get: function() {
+                return form['{{name}}'].checked;
+            },
+            set: function(value) {
+                form['{{name}}'].checked = value;
+            }
+        });
+    </script>
