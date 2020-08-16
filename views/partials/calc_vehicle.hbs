@@ -7,8 +7,6 @@
             <option value="extreme">Extreme</option>
         </select>
     </label>
-    {{> components/checkbox name="jumpedIn" title="Driver jumped in with control rig"}}
-    
     <div if="situation === 'easy'">
         <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
             <span>Threshold: 1</span>
@@ -33,7 +31,14 @@
             <span>Jumping vehicle over an obstacle, driving through a space just big enough for the vehicle, while ramping a vehicle through the air rolling it just enough to have a hook from an overhanging crane knock a bomb off the bottom of the vehicle before it explodes</span>
         </div>
     </div>
+    <br/>
 </label>
+    {{> components/checkbox name="jumpedIn" title="Driver jumped in with control rig"}}
+<div if="jumpedIn">
+    {{> components/number name="rcc" title="Device Rating of control Rig" default="0"}}
+</div>
+
+
 
 <label>Terrain Modifiers table
     <label for="terrain" class="select">

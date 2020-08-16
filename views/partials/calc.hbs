@@ -63,6 +63,7 @@
         let terrain;
         let opposedTest = false;
         let situation;
+        let jumpedIn = false;
 
         form.addEventListener('change', () => {
             updateForm();
@@ -73,6 +74,7 @@
             opposedTest = form['opposedTest'].checked;
             terrain = form['terrain'].value;
             situation = form['situation'].value;
+            jumpedIn = form['jumpedIn'].checked;
 
             form.querySelectorAll('[if]').forEach(element => {
                 ifFormula = element.getAttribute('if');
@@ -372,6 +374,8 @@
 
         vehicleThreshold = function() {
             let value = vehicleTerrainModifier();
+            if (form['jumpedIn'].checked) 
+                value += -parseInt(form['rcc'].value);
             let isExtreme = false;
             switch(situation) {
                 case 'easy':
@@ -389,9 +393,9 @@
                     break;
             }
             if (isExtreme) {
-                return value + '+';
+                return Math.max(1, value) + '+';
             } else {
-                return value;
+                return Math.max(1, value);
             }
         }
 
