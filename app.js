@@ -86,14 +86,39 @@ app.get('/find', (req, res) => {
 
 app.get('/calculate', (req, res) => {
     const data = {
-    _view: 'calc',
-    layout: 'calc_layout',
-    tests: {
-        healing: 'Healing Test',
-        melee: 'Melee Attack Test',
-        matrix: 'Matrix Test',
-        ranged: 'Ranged Attack Test',
-    }
+        _view: 'calc',
+        layout: 'calc_layout',
+        tests: {
+            healing: 'Healing Test',
+            melee: 'Melee Attack Test',
+            matrix: 'Matrix Test',
+            ranged: 'Ranged Attack Test',
+            vehicle: 'Vehicle Test',
+        },
+        visibility: {
+            '0': 'Clear',
+           '-1': 'Light Rain / Fog / Smoke',
+           '-3': 'Moderate Rain / Fog / Smoke',
+           '-6': 'Heavy Rain / Fog / Smoke',
+       },
+        light: {
+             '0': 'Full Light / No Glare',
+            '-1': 'Partial Light / Weak Glare',
+            '-3': 'Dim Light / Moderate Glare',
+            '-6': 'Total Darkness / Blinding Glare',
+        },
+        wind: {
+             '0': 'None or Light Breeze',
+            '-1': 'Light Winds',
+            '-3': 'Moderate Winds',
+            '-6': 'Strong Winds',
+        },
+        range: {
+             '0': 'Short',
+            '-1': 'Medium',
+            '-3': 'Long',
+            '-6': 'Extreme',
+        }
     }
     res.render(data._view, data);
 })

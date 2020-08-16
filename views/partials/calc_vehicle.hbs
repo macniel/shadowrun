@@ -1,0 +1,123 @@
+<label>Vehicle Test Threshold table
+    <label for="situation" class="select">
+        <select name="situation" onchange="updateForm(event)">
+            <option value="easy">Easy</option>
+            <option value="average">Average</option>
+            <option value="hard">Hard</option>
+            <option value="extreme">Extreme</option>
+        </select>
+    </label>
+    {{> components/checkbox name="jumpedIn" title="Driver jumped in with control rig"}}
+    
+    <div if="situation === 'easy'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Threshold: 1</span>
+            <span>Merging, passing, sudden stop, drift or gradual turn (less than 75 degrees)</span>
+        </div>
+    </div>
+    <div if="situation === 'average'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Threshold: 2</span>
+            <span>Avoiding an obstacle, maneuvering through a narrow spot, tight turn (75 - 130 degrees)</span>
+        </div>
+    </div>
+    <div if="situation === 'hard'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Threshold: 3</span>
+            <span>Hairpin turn, "stoppie" on a motorbike, driving through unusual places (mall), "dog leg" or hairpin turn (greater than 130 degrees)</span>
+        </div>
+    </div>
+    <div if="situation === 'extreme'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Threshold: 4+</span>
+            <span>Jumping vehicle over an obstacle, driving through a space just big enough for the vehicle, while ramping a vehicle through the air rolling it just enough to have a hook from an overhanging crane knock a bomb off the bottom of the vehicle before it explodes</span>
+        </div>
+    </div>
+</label>
+
+<label>Terrain Modifiers table
+    <label for="terrain" class="select">
+        <select name="terrain" onchange="updateForm(event)">
+            <option value="open">Open</option>
+            <option value="light">Light</option>
+            <option value="restricted">Restricted</option>
+            <option value="tight">Tight</option>
+        </select>
+    </label>
+    <div if="terrain === 'open'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Modifier: 0</span>
+            <span>Highways, flat plains, open sea, clear sky</span>
+        </div>
+    </div>
+    <div if="terrain === 'light'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Modifier: +1</span>
+            <span>Highways, Main street thoroughfares, rolling hills, dock areas, intracity air traffic</span>
+        </div>
+    </div>
+    <div if="terrain === 'restricted'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Modifier: +2</span>
+            <span>Side streets, light woods, rocky mountain slopes, light traffic, shallow aters, heavy air traffic, low altitude flying over heavy terrain</span>
+        </div>
+    </div>
+    <div if="terrain === 'tight'">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+            <span>Modifier: 4</span>
+            <span>Back alleys, heavy woods, steep slopes, high traffic, swamp, heavy rapids, flying at street level through a city, flying through winding canyons</span>
+        </div>
+    </div>
+</label>
+
+ <table>
+
+                    
+                    <thead>
+                        <tr>
+                            <th>Vehicle Test Modifier Table</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{> components/checkbox name="pimpaired" title="Pilot has impaired Visibility"}}
+                                <input type="checkbox" id="acharging" name="acharging"></td>
+                            <td><output calculated-value="visibility"></output></td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="plighting" title="Piloting in limited Light conditions"}}</td>
+                            <td><output calculated-value="lighting"></output></td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="punaware" title="Pilot unaware of event"}}</td>
+                            <td>No test possible</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="pwounded" title="Pilot is wounded"}}</td>
+                            <td><output calculated-value="awounds"></output></td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="vwounded" title="Piloting damaged vehicle"}}</td>
+                            <td><output calculated-value="vwounds"></output> Handling</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="par" title="Pilot using Augmented Reality"}}</td>
+                            <td>+1 Handling</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="pvr" title="Pilot using Virtual Reality"}}</td>
+                            <td>+2 Handling</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+
+                <h2>Total Modifiers</h2>
+                <div>
+                    Dicepool: <output calculated-value="vehicleDicepool"></output>
+                    <span if="form['punaware'].checked"> No Test Possible</span><br/>
+                    Handling: <output calculated-value="vehicleLimit"></output><br/>
+                    Threshold: <output calculated-value="vehicleThreshold"></output>
+                </div>        

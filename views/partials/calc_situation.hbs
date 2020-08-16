@@ -1,48 +1,26 @@
 <h2>Situation Modifiers</h2>
-                Remember that you can compensate environmental modifiers, to do that just choose the modified option
-                intead.
-                <br />
-                <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
-                    
-                    <label>Visibility
-                        <label for="visibility" class="select"><select id="visibility" name="visibility">
-                                <option value="0">Clear</option>
-                                <option value="-1">Light Rain/Fog/Smoke</option>
-                                <option value="-3">Moderate Rain/Fog/Smoke</option>
-                                <option value="-6">Heavy Rain/Fog/Smoke</option>
-                            </select></label>
-                    </label>
+Remember that you can compensate environmental modifiers, to do that just choose the modified option
+intead.
+<br />
+<div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+
+    <label>Visibility
+        {{> components/select name="visibility" options=options.visibility}}
+    </label>
 
 
-                    <label>Light / Glare
-                        <label for="light" class="select"><select id="light" name="light">
-                                <option value="0">Full Light/No Glare</option>
-                                <option value="-1">Partial Light/Weak Glare</option>
-                                <option value="-3">Dim Light /Moderate Glare</option>
-                                <option value="-6">Total Darkness /Blinding Glare</option>
-                            </select></label>
-                    </label>
+    <label>Light / Glare
+        {{> components/select name="light" options=options.light}}
+    </label>
 
 
-                    <label>Wind
-                        <label for="wind" class="select"><select id="wind" name="wind">
-                                <option value="0">None or Light Breeze</option>
-                                <option value="-1">Light Winds</option>
-                                <option value="-3">Moderate Winds</option>
-                                <option value="-6">Strong Winds</option>
-                            </select></label>
-                    </label>
+    <label>Wind
+        {{> components/select name="wind" options=options.wind}}
+    </label>
 
-                    <label>Range
-                        <label for="range" class="select"><select id="range" name="range">
-                                <option value="0">Short</option>
-                                <option value="-1">Medium</option>
-                                <option value="-3">Long</option>
-                                <option value="-6">Extreme</option>
-                            </select></label>
-                    </label>
+    <label>Range
+        {{> components/select name="range" options=options.range}}
+    </label>
 
 
-                </div>
-                <p>Total Modifier due to Environmental circumstances: <output calculated-value="environmental"></span>
-                </p>
+</div>

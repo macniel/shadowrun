@@ -13,7 +13,7 @@
         {{> components/checkbox name="opposedTest" title="Is Opposed Test"}}
     </label>
     <div>
-        {{> calc_situation}}
+        {{> calc_situation options=this}}
     </div>
     <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; grid-gap: 20px;">
         <div>
@@ -24,7 +24,11 @@
                 Wound Modifiers
                 <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
                     {{> components/number title='Physical Damage:' name='aphysical' default='0'}}
+
                     {{> components/number title='Stun Damage:' name='astun' default='0'}}
+                    <div if="type==='vehicle'">
+                        {{> components/number title='Vehicle Damage:' name='vdamage' default='0'}}
+                    </div>
                 </div>
                 <p>Total Modifier due to wounds: <span calculated-value="awounds"></span></p>
             </div>
@@ -42,6 +46,9 @@
             <div if="type==='matrix'">
                 Matrix Modifiers
             </div>
+            <div if="type==='vehicle'">
+                {{> calc_vehicle}}
+            </div>
         </div>
         <div if="opposedTest">
             {{> calc_opposed}}
@@ -50,10 +57,12 @@
 
 
     <script>
-        const form = document.getElementById('form');
+        window.form = document.getElementById('form');
         let type;
         let firemode;
+        let terrain;
         let opposedTest = false;
+        let situation;
 
         form.addEventListener('change', () => {
             updateForm();
@@ -62,6 +71,8 @@
             type = form['type'].value;
             firemode = form['firemode'].value;
             opposedTest = form['opposedTest'].checked;
+            terrain = form['terrain'].value;
+            situation = form['situation'].value;
 
             form.querySelectorAll('[if]').forEach(element => {
                 ifFormula = element.getAttribute('if');
@@ -129,6 +140,14 @@
             const stunModifier = parseInt(form['dstun'].value);
 
             const totalModifier = Math.floor(Math.round(physicalModifier / 3)) + Math.floor(Math.round(stunModifier / 3));
+
+            return totalModifier * -1;
+        }
+
+        vwounds = function (element) {
+            const physicalModifier = parseInt(form['vdamage'].value);
+           
+            const totalModifier = Math.floor(Math.round(physicalModifier / 3));
 
             return totalModifier * -1;
         }
@@ -233,6 +252,8 @@
                 value += -2;
             if (form['woundedModifier'].checked)
                 value += awounds();
+             if (form['renvironmental'].checked)
+                value += environmental();
             if (form['blindfire'].checked)
                 value += -6;
             if (form['calledShot'].checked)
@@ -283,7 +304,7 @@
         }
 
         rangedDicepool = function (element) {
-            return environmental() + aSituationalDPModifier() + totalRecoil();
+            return aSituationalDPModifier() + totalRecoil();
         }
 
         rangedAccuracy = function (element) {
@@ -306,6 +327,80 @@
                 case 'SF':
                     return 'Duck or Cover';
             }
+        }
+
+        vehicleTerrainModifier = function() {
+            switch (form['terrain'].value) {
+                case 'open':
+                return 0;
+                case 'light':
+                return 1;
+                case 'restricted':
+                return 2;
+                case 'tight':
+                return 4;
+            }
+        }
+
+        vehicleSituationalDPModifier = function() {
+            let value = 0;
+            if (form['pimpaired'].checked)
+                value += visibility();
+            if (form['plighting'].checked)
+                value += lighting();
+            if (form['punaware'].checked)
+                return NaN;
+            if (form['pwounded'].checked)
+                value += awounds();
+            if (form['vwounded'].checked)
+                value += vwounds();
+            return value;
+        }
+
+        vehicleDicepool = function() {
+            return vehicleSituationalDPModifier();
+        }
+
+        vehicleLimit = function() {
+            let value = 0;
+            if (form['par'].checked)
+                value += 1;
+            if (form['pvr'].checked)
+                value += +2;
+            return value;
+        }
+
+        vehicleThreshold = function() {
+            let value = vehicleTerrainModifier();
+            let isExtreme = false;
+            switch(situation) {
+                case 'easy':
+                    value += 1;
+                    break;
+                case 'average':
+                    value += 2;
+                    break;
+                case 'hard':
+                    value += 3;
+                    break;
+                case 'extreme':
+                    value += 4;
+                    isExtreme = true;
+                    break;
+            }
+            if (isExtreme) {
+                return value + '+';
+            } else {
+                return value;
+            }
+        }
+
+        visibility = function() {
+            return parseInt(form['visibility'].value);
+        }
+
+        lighting = function() {
+            return parseInt(form['light'].value);
         }
 
         updateForm();
