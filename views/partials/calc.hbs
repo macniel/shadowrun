@@ -77,7 +77,10 @@
                     const value = window[functionRef](element);
                     element.textContent = value;
                     element.value = value;
-                }
+                } else if (typeof window[functionRef] === 'string') {
+                    element.textContent = window[functionRef];
+                    element.value = window[functionRef];
+                } 
 
             })
 
@@ -336,9 +339,9 @@
         vehicleSituationalDPModifier = function() {
             let value = 0;
             if (pimpaired)
-                value += visibility();
+                value += parseInt(visibility);
             if (plighting)
-                value += lighting();
+                value += parseInt(light);
             if (phot)
                 value += 1;
             if (pwounded)
@@ -391,14 +394,6 @@
             } else {
                 return Math.max(1, value);
             }
-        }
-
-        visibility = function() {
-            return parseInt(visibility);
-        }
-
-        lighting = function() {
-            return parseInt(light);
         }
 
         updateForm();
