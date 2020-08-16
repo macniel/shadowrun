@@ -315,3 +315,75 @@ footer {
 a:hover, a:focus {
     text-decoration: underline;
 }
+
+
+
+
+input[type=checkbox]::before {
+    
+}
+
+label.input {
+    border: 0;
+    background: 0;
+    display: inline-block;
+    margin: initial;
+    padding: initial;
+    color: var(--text);
+}
+
+input[type=checkbox]+label::before {
+    border: 2px solid var(--chrome);
+    width: 20px;
+    height: 20px;
+    content: '';
+    display: inline-block;
+    margin-right: 20px;
+}
+
+input[type=checkbox]:checked+label::before {
+    border: 2px solid var(--chrome);
+    width: 20px;
+    height: 20px;
+    content: '✓';
+    display: inline-block;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input.innerinput[type="number"] {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px dotted var(--text);
+    width: 40px;
+}
+
+label.select {
+    border: 0;
+    background: 0;
+    display: inline-block;
+    margin: initial;
+    padding: initial;
+    color: var(--text);
+    width: 100%;
+    position: relative;
+}
+
+label.select::after {
+    content: '~';
+    position: absolute;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+
+label.select select {
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    border-bottom: 2px dotted var(--text);
+    width: 100%;
+}

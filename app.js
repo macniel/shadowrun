@@ -84,6 +84,14 @@ app.get('/find', (req, res) => {
     }
 });
 
+app.get('/calculate', (req, res) => {
+    const data = {
+    _view: 'calc',
+    layout: 'calc_layout',
+    }
+    res.render(data._view, data);
+})
+
 app.get('/edit', (req, res) => {
     if (!req.session.loggedIn) {
         res.sendStatus(403).end();

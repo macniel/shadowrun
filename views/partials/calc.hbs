@@ -1,0 +1,392 @@
+<p>
+    Base Line Calculator for accumulating Modifiers for Tests.
+</p>
+
+<form id="form">
+
+    <p>
+        Select a Test from the following incomplete List to reveal all modifiers that are applicable.
+    </p>
+
+    <label>Type of Test:
+        <label for="type" class="select">
+        <select id="type" name="type" onchange="updateForm(event)">
+            <option value="healing">Healing Test</option>
+            <option value="melee">Melee Attack Test</option>
+            <option value="matrix">Matrix Test</option>
+            <option value="ranged">Ranged Attack Test</option>
+        </select>
+        </label>
+    </label>
+
+    <div>
+        Wound Modifiers
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+        <label>Physical Damage: <input name="physical" /></label>
+        <label>Stun Damage: <input name="stun" /></label>
+        <label>Matrix Damage: <input name="matrix" /></label>
+        </div>
+        <p>Total Modifier due to wounds: <span calculated-value="wounds"></span></p>
+    </div>
+
+    <div if="type==='healing'">
+        Healing Modifiers
+    </div>
+    <div if="type==='melee'">
+        Melee Modifiers
+    </div>
+    <div if="type==='ranged'">
+        Ranged Modifiers
+<h2>Situation Modifiers</h2>
+    Remember that you can compensate environmental modifiers, to do that just choose the modified option intead.
+<br/>
+     <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+
+        <label>Visibility
+             <label for="visibility" class="select"><select id="visibility" name="visibility">
+                <option value="0">Clear</option>
+                <option value="-1">Light Rain/Fog/Smoke</option>
+                <option value="-3">Moderate Rain/Fog/Smoke</option>
+                <option value="-6">Heavy Rain/Fog/Smoke</option>
+            </select></label>
+        </label>
+
+
+        <label>Light / Glare
+             <label for="light" class="select"><select id="light" name="light">
+                <option value="0">Full Light/No Glare</option>
+                <option value="-1">Partial Light/Weak Glare</option>
+                <option value="-3">Dim Light /Moderate Glare</option>
+                <option value="-6">Total Darkness /Blinding Glare</option>
+            </select></label>
+        </label>
+
+        
+        <label>Wind Conditions
+             <label for="wind" class="select"><select id="wind" name="wind">
+                <option value="0">None or Light Breeze</option>
+                <option value="-1">Light Winds</option>
+                <option value="-3">Moderate Winds</option>
+                <option value="-6">Strong Winds</option>
+            </select></label>
+        </label>
+
+        <label>Range according to Firearm
+            <label for="range" class="select"><select id="range" name="range">
+                <option value="0">Short</option>
+                <option value="-1">Medium</option>
+                <option value="-3">Long</option>
+                <option value="-6">Extreme</option>
+            </select></label>
+        </label>
+
+      
+</div>  
+  <p>Total Modifier due to Environmental circumstances: <output calculated-value="environmental"></span></p> 
+        <label>Fire Mode
+            <label for="firemode" class="select">
+           <select name="firemode" onchange="updateForm(event)">
+               <option value="SS">Single Shot</option>
+               <option value="SA">Semi Auto</option>
+               <option value="SB">Semi Burst</option>
+               <option value="BF">Burst Fire</option>
+               <option value="LB">Long Burst</option>
+               <option value="FA">Full Auto</option>
+               <option value="SF">Supressive Fire</option>
+           </select>
+           </label>
+           
+           <div if="firemode === 'SS'">
+               <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+                <span>Defense Modifier: 0</span>
+                <span>Number of Rounds: 1</span>
+                <span>Notes: No Recoil</span>
+               </div>
+           </div>
+           <div if="firemode === 'SA'">
+               <div  style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+               <span>Defense Modifier: 0</span>
+               <span>Number of Rounds: 1</span>
+               <span>Notes:</span>
+           </div>
+           </div>
+            <div if="firemode === 'SB'">
+               <div  style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+               <span>Defense Modifier: -2</span>
+               <span>Number of Rounds: 3</span>
+               <span>Notes:</span>
+               </div>
+           </div>
+           <div if="firemode === 'BF'">
+               <div  style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+               <span>Defense Modifier: -2</span>
+               <span>Number of Rounds: 3</span>
+               <span>Notes:</span>
+               </div>
+           </div>
+           <div if="firemode === 'LB'">
+               <div  style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+               <span>Defense Modifier: -5</span>
+               <span>Number of Rounds: 6</span>
+               <span>Notes: or Full Auto (Simple)</span>
+               </div>
+           </div>
+           <div if="firemode === 'FA'">
+               <div  style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+               <span>Defense Modifier: -9</span>
+               <span>Number of Rounds: 10</span>
+               <span>Notes:</span>
+               </div>
+           </div>
+           <div if="firemode === 'SF'">
+               <div  style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+               <span>Defense Modifier: Duck or Cover</span>
+               <span>Number of Rounds: 20</span>
+               <span>Notes: No Recoil</span>
+               </div>
+           </div>
+        </label>
+
+        <h2>Recoil</h2>
+<div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+        <label>Weapon Compensation
+           <input type="number" name="rc"/>
+        </label>
+
+        <label>Body/Strength of Attacker
+           <input type="number" name="brc"/>
+        </label>
+
+        <label>Continues Rounds fired
+           <input type="number" name="prc"/>
+        </label>
+
+         <label>Rounds to be fired<br/>
+           <output type="number" name="fmr" calculated-value="firemodeRounds" />
+        </label>
+</div>
+<p>
+    Total Modifier due to Recoil: <output calculated-value="totalRecoil"></output>
+</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Situational Modifiers Table</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" id="imaging" name="imaging"><label for="imaging" class="input">Attacker firing from cover with imaging device</label></td>
+                    <td>-3</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="moving" name="moving"><label for="moving" class="input">Attacker firing from a moving vehicle</label></td>
+                    <td>-2</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="inMelee" name="inMelee"><label class="input" for="inMelee">Attacker in melee combat</label></td>
+                    <td>-3</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="running" name="running"><label for="running" class="input">Attacker running</label></td>
+                    <td>-2</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="offHand" name="offHand"><label for="offHand" class="input">Attacker using off-hand weapon</label></td>
+                    <td>-2</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" checked id="woundedModifier" name="woundedModifier"><label for="woundedModifier" class="input">Attacker wounded</label></td>
+                    <td><output calculated-value="wounds"></output></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="blindfire" name="blindfire"><label for="blindfire" class="input">Blind fire</label></td>
+                    <td>-6</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="calledShot" name="calledShot"><label for="calledShot" class="input">Called shot</label></td>
+                    <td>-4</td>
+                </tr>
+                <tr>
+                    <td><input type="number" class="innerinput" id="takeAim" name="takeAim" value="0"><label for="takeAim" class="input">Previously aimed with Take Aim</label></td>
+                    <td>+1 Dice Pool, +1 Accurracy</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="hasSmartgun" name="hasSmartgun"><label for="hasSmartgun" class="input" >Wireless Smartgun</label></td>
+                    <td><label class="select" for="smartgun"><select id="smartgun" name="smartgun">
+                        <option value="+1">as Gear</option>
+                        <option value="+2">as Implant</option>
+                    </select></label></td>
+                </tr>
+            </tbody>
+        </table>
+        
+
+    <h2>Total Modifiers</h2>
+    <div>
+        Dicepool: <output calculated-value="rangedDicepool"></output><br/>
+        Accuracy: <output calculated-value="rangedAccuracy"></output><br/>
+        Defense Modifier: <output calculated-value="rangedDefense"></output><br/>
+    </div>
+        
+    </div>
+    <div if="type==='matrix'">
+        Matrix Modifiers
+    </div>
+
+    <script>
+        const form = document.getElementById('form');
+        let type;
+        let firemode;
+        
+        form.addEventListener('change', () => {
+            updateForm();
+        })
+        updateForm = function() {
+            type = form['type'].value;
+            firemode = form['firemode'].value;
+
+            form.querySelectorAll('[if]').forEach(element => {
+                ifFormula = element.getAttribute('if');
+               
+                element.hidden = !eval(ifFormula);
+            });
+
+            form.querySelectorAll('[calculated-value]').forEach(element => {
+                const functionRef = element.getAttribute('calculated-value');
+                if (typeof window[functionRef] === 'function') {
+                    const value = window[functionRef](element);
+                    element.textContent = value;
+                    element.value = value;
+                }
+
+            })
+
+        }
+
+        environmental = function(element) {
+                const modifiers = [
+                    parseInt(form['visibility'].value),
+                    parseInt(form['range'].value),
+                    parseInt(form['wind'].value),
+                    parseInt(form['light'].value)
+                    ];
+                let standingModifier = Math.min(...modifiers);
+                const twoOrMoreThreshold = modifiers.filter(predicate => predicate === -6).length > 1;
+                if (twoOrMoreThreshold) {
+                    standingModifier = -10;
+                }
+                return standingModifier;
+            }
+        
+        wounds = function(element) {
+            const physicalModifier = parseInt(form['physical'].value);
+            const stunModifier = parseInt(form['stun'].value);
+            
+            const totalModifier = Math.floor(Math.round(physicalModifier / 3)) + Math.floor(Math.round(stunModifier / 3));
+            
+            return totalModifier * -1;
+        }
+
+        firemodeRounds = function(element) {
+            switch (firemode) {
+                case 'SS': 
+                case 'SA':
+                    return 1;
+                case 'SB':
+                case 'BF':
+                    return 3;
+                case 'LB':
+                    return 6;
+                case 'FB':
+                case 'FA':
+                    return 10;
+                case 'SF':
+                    return 20;
+            }
+        }
+
+        totalRecoil = function(element) {
+            
+            const bodyOrStrengthModifier = parseInt(form['brc'].value) || 0;
+            const weaponModifier = parseInt(form['rc'].value) || 0;
+            const progressiveModifier = parseInt(form['prc'].value) || 0;
+            const shotsFired = parseInt(form['fmr'].value) || 0;
+
+            const poolAgainstRecoil = 1 + Math.ceil(bodyOrStrengthModifier /3) + weaponModifier;
+            const roundsFired = progressiveModifier + shotsFired;
+            if (firemode === 'SS' || firemode === 'SF') {
+                
+                return 0;
+            }
+            if (poolAgainstRecoil - roundsFired > 0)
+                return 0;
+            else 
+                return poolAgainstRecoil - roundsFired;
+        }
+
+        situationalDPModifier = function(element) {
+            let value  =  0;
+            if (form['imaging'].checked)
+                value += -3;
+            if (form['moving'].checked)
+                value += -2;
+            if (form['inMelee'].checked)
+                value += -3;
+            if (form['running'].checked)
+                value += -2;
+            if (form['offHand'].checked)
+                value += -2;
+            if (form['woundedModifier'].checked) 
+                value += wounds();
+            if (form['blindfire'].checked)
+                value += -6;
+            if (form['calledShot'].checked)
+                value += -4;
+            if (form['takeAim'].value != '0')
+                value += parseInt(form['takeAim'].value);
+            if (form['hasSmartgun'].checked)
+                value += parseInt(form['smartgun'].value);
+            return value;
+        }
+
+        
+        situationalLimitModifier = function(element) {
+            let value  =  0;
+            if (form['takeAim'].value != '0')
+                value += parseInt(form['takeAim'].value);
+            return value;
+        }
+
+       rangedDicepool = function(element) {
+           return environmental() + situationalDPModifier() + totalRecoil();
+       }
+
+       rangedAccuracy = function(element) {
+           return situationalLimitModifier();
+       }
+
+        rangedDefense = function(element) {
+             switch (firemode) {
+                case 'SS': 
+                case 'SA':
+                    return 0;
+                case 'SB':
+                case 'BF':
+                    return -2;
+                case 'LB':
+                    return -5;
+                case 'FB':
+                case 'FA':
+                    return -9;
+                case 'SF':
+                    return 'Duck or Cover';
+            }
+        }
+
+        updateForm();
+    </script>
+
+</form>
+
+    
