@@ -354,8 +354,6 @@
                 return NaN;
             if (form['pwounded'].checked)
                 value += awounds();
-            if (form['vwounded'].checked)
-                value += vwounds();
             return value;
         }
 
@@ -365,6 +363,8 @@
 
         vehicleLimit = function() {
             let value = 0;
+            if (form['vwounded'].checked)
+                value += vwounds();
             if (form['par'].checked)
                 value += 1;
             if (form['pvr'].checked)
@@ -377,6 +377,7 @@
             if (form['jumpedIn'].checked) 
                 value += -parseInt(form['rcc'].value);
             let isExtreme = false;
+
             switch(situation) {
                 case 'easy':
                     value += 1;
