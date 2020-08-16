@@ -359,6 +359,8 @@
 
         vehicleLimit = function() {
             let value = 0;
+            if (jumpedIn) 
+                value += parseInt(rcc);
             if (vwounded)
                 value += vwounds();
             if (par)
