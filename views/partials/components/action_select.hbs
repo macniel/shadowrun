@@ -1,0 +1,103 @@
+ <label for="{{name}}" class="select">
+    <select id="{{name}}" name="{{name}}" onchange="updateForm(event); updateStat('{{name}}')">
+        {{#each options}}
+            <option value="{{@key}}">{{this.label}}</option>
+        {{/each}}
+    </select>
+    
+    <div if="!tNoTest">
+        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; grid-gap: 20px;">
+            <div>
+                Test:<br/>
+                <output calculated-value="tAttackerSkill"></output> + <output calculated-value="tAttackerAbility"></output> <output calculated-value="tAttackerLimit"></output>
+                
+                <output if="!opposedTest" calculated-value="tThreshold"></output>
+            
+            </div>
+            <div if="opposedTest">
+                Opposed Test:<br/>
+                <output calculated-value="tDefenseSkill"></output> + <output calculated-value="tDefenseAbility"></output> <output calculated-value="tDefenseLimit"></output>
+            </div>
+            
+        </div>
+    </div>
+    <div if="tNoTest">
+        No Test involved
+    </div>
+    <div if="tNote">
+        <output calculated-value="tNote"></output>
+    </div>
+    
+</label>
+    <script type="text/javascript">
+    
+    window.tNoTest = false;
+    window.tNote = '';
+
+        window.updateStat = function(actionName) {
+            const selectedAction = window[actionName];
+            let alimits = [];
+            let dlimits = [];
+            switch(selectedAction) {
+                {{#each options}}
+                case '{{@key}}': 
+                    window['type'] = '{{this.type}}';
+                    {{#ifeq this.typeOfTest 'opposed'}}
+                    window['opposedTest'] = true;
+                    {{else}}
+                    window['opposedTest'] = false;
+                    {{/ifeq}}
+                    
+                    {{#ifeq this.typeOfTest 'none'}}
+                    window['tNoTest'] = true;
+                    {{else}}
+                    window['tNoTest'] = false;
+                    {{/ifeq}}
+                    window['tAttackerSkill'] = '{{this.testParameter.attackerSkill}}';
+                    window['tAttackerAbility'] = '{{this.testParameter.attackerAbility}}';
+                    {{#ifeq this.testParameter.hasAttackerLimit 'true'}}
+                    alimits = [];
+                    {{#each this.testParameter.attackerLimit}}
+                        alimits.push('{{this}}');
+                    {{else}}
+                        alimits.push('{{this.testParameter.attackerLimit}}');
+                    {{/each}}
+                    window['tAttackerLimit'] = '[' + alimits.join(',') + ']';
+                    {{else}}
+                    window['tattackerLimit'] = '';
+                    {{/ifeq}}
+                    window['tDefenseSkill'] = '{{this.testParameter.opposedSkill}}';
+                    window['tDefenseAbility'] = '{{this.testParameter.opposedAbility}}';
+                    {{#ifeq this.testParameter.hasOpposedLimit 'true'}}
+                    dlimits = [];
+                    {{#each this.testParameter.opposedLimit}}
+                        dlimits.push('{{this}}');
+                    {{else}}
+                        dlimits.push('{{this.testParameter.opposedLimit}}')
+                    {{/each}}
+                    window['tDefenseLimit'] = '[' + dlimits.join(',') + ']';
+                    {{else}}
+                    window['tDefenseLimit'] = '';
+                    {{/ifeq}}
+                    window['tNote'] = '{{this.testParameter.note}}';
+                    if ( '({{this.testParameter.threshold}})' == '()') {
+                        window['tThreshold'] = '';
+                    } else {
+                        window['tThreshold'] = '({{this.testParameter.threshold}})';
+                    }
+                                 
+                break;
+                {{/each}}
+            }
+
+        }
+
+        Object.defineProperty(window, '{{name}}', {
+            get: function() {
+                return form['{{name}}'].value;
+            },
+            set: function(value) {
+                form['{{name}}'].value = value;
+            }
+        });
+    </script>

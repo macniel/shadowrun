@@ -8,6 +8,12 @@
         Select a Test from the following incomplete List to reveal all modifiers that are applicable.
     </p>
 
+    <label>
+        Select Action:
+        {{> components/action_select name="action" options=this.actions}}
+    </label>
+
+
     <label>Type of Test:
         {{> components/select name="type" options=this.tests}}
         {{> components/checkbox name="opposedTest" title="Is Opposed Test"}}
@@ -49,9 +55,15 @@
             <div if="type==='vehicle'">
                 {{> calc_vehicle}}
             </div>
+            <div if="type==='reload'">
+                {{> calc_reload}}
+            </div>
         </div>
         <div if="opposedTest">
             {{> calc_opposed}}
+        </div>
+        <div if="!opposedTest">
+            {{> calc_threshold}}
         </div>
     </div>
 
