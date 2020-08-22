@@ -389,3 +389,8 @@ label.select select {
     border-bottom: 2px dotted var(--text);
     width: 100%;
 }
+
+tbody td, 
+tbody th {
+    vertical-align: top;
+}
