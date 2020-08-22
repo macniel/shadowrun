@@ -3,31 +3,7 @@
         {{#each options}}
             <option value="{{@key}}">{{this.label}}</option>
         {{/each}}
-    </select>
-    
-    <div if="!tNoTest">
-        <div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; grid-gap: 20px;">
-            <div>
-                Test:<br/>
-                <output calculated-value="tAttackerSkill"></output> + <output calculated-value="tAttackerAbility"></output> <output calculated-value="tAttackerLimit"></output>
-                
-                <output if="!opposedTest" calculated-value="tThreshold"></output>
-            
-            </div>
-            <div if="opposedTest">
-                Opposed Test:<br/>
-                <output calculated-value="tDefenseSkill"></output> + <output calculated-value="tDefenseAbility"></output> <output calculated-value="tDefenseLimit"></output>
-            </div>
-            
-        </div>
-    </div>
-    <div if="tNoTest">
-        No Test involved
-    </div>
-    <div if="tNote">
-        <output calculated-value="tNote"></output>
-    </div>
-    
+    </select>  
 </label>
     <script type="text/javascript">
     

@@ -1,4 +1,4 @@
-<input type="number" min="{{min}}" class="innerinput" id="{{name}}" name="{{name}}" value="{{default}}">
+<input type="number" min="{{min}}" {{#if step}}step="{{step}}"{{/if}} {{#if max}}max="{{max}}"{{/if}} class="innerinput" id="{{name}}" name="{{name}}" value="{{default}}">
 <label for="{{name}}" class="input">{{title}}</label>
     <script type="text/javascript">
         Object.defineProperty(window, '{{name}}', {

@@ -1,0 +1,63 @@
+ <label>Healing situation conditions
+     {{> components/select name="healing_conditions" options=this.healingConditions}}
+     </label>
+
+ <table>
+                    <thead>
+                        <tr>
+                            <th>Healing Modifiers Table</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>{{> components/checkbox name="use_healing_conditions" title="Healing Conditions"}}</td>
+                            <td><output calculated-value="healing_conditions"></output></td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="no_medical_supplies" title="No Medical Supplies"}}
+                            <td>-3</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="improvised_medical_supplies" title="Improvised Medical Supplies"}}</td>
+                            <td>-1</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="medkit" title="Wireless medkit/autodoc"}}</td>
+                            <td>+{{> components/inumber title='Rating' name='medkit_rating' default="1" min="1"}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="medical_remote" title="Applying medical care remotely"}}</td>
+                            <td>-2</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="medical_assisted" title="Assistance"}}</td>
+                            <td>As Teamwork Test</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="medical_against" title="Uncooperative patient"}}</td>
+                            <td>-2</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="patient_awakened" title="Patient is Awakened or Emerged"}}</td>
+                            <td>-2</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="patient_implants" title="Patient Essence Loss"}}</td>
+                            <td>{{> components/inumber name="patient_essence" title="Loss" default="0" step="2"}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="untrained" title="Character is untrained"}}</td>
+                            <td>Device Rating -1</td>
+                        </tr>
+                        
+                        
+                    </tbody>
+                </table>
+
+
+                <h2>Total Modifiers</h2>
+                <div>
+                    Dicepool: <output calculated-value="healingDicepool"></output> <span if="untrained"> Use Device Rating -1 instead of Fire Aid</span><br/>
+                    Limit: <output calculated-value="healingLimit"></output><br/>
+
+                </div>        

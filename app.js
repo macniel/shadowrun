@@ -650,17 +650,57 @@ app.get('/calculate', (req, res) => {
                     note: 'Allows Called Shot for Vehicle Weapons.'
                 }
             },
+            'recover_stun': {
+                'label': 'Natural Recovery: Stun',
+                type: 'none',
+                actionType: 'complex',
+                typeOfTest: 'none',
+                testParameter: {
+                    attackerSkill: 'Body',
+                    attackerAbility: 'Willpower',
+                    attackerLimit: 'Mental',
+                    hasAttackerLimit: 'false',
+                    note: 'Interval is 1 hour. Each hit heals 1 box of Stun Damage.'
+                }
+            },
+            'recover_physical': {
+                'label': 'Natural Recovery: Physical',
+                type: 'none',
+                actionType: 'complex',
+                typeOfTest: 'none',
+                testParameter: {
+                    attackerSkill: 'Body',
+                    attackerAbility: 'Body',
+                    attackerLimit: 'Mental',
+                    hasAttackerLimit: 'false',
+                    note: 'Interval is 1 day. Each hit heals 1 box of Physical Damage. Stun Damage needs to be recovered from first.'
+                }
+            },
+            'first_aid': {
+                'label': 'First Aid',
+                type: 'healing',
+                actionType: 'complex',
+                typeOfTest: 'test',
+                testParameter: {
+                    attackerSkill: 'First Aid',
+                    attackerAbility: 'Logic',
+                    attackerLimit: 'Mental',
+                    hasAttackerLimit: 'true',
+                    threshold: '2',
+                    note: 'Only usable to recover from damage that was infliced within the last hour'
+                }
+            },
             'using_medicine': {
                 'label': 'Using Medicine',
                 type: 'healing',
-                actionType: 'extended',
+                actionType: 'test',
                 typeOfTest: 'test',
                 testParameter: {
                     attackerSkill: 'Medicine',
                     attackerAbility: 'Logic',
                     attackerLimit: 'Mental',
                     hasAttackerLimit: 'true',
-                    note: ''
+                    note: 'Each hit adds one die to healing tests'
                 }
             },
             'stabilize': {
@@ -686,6 +726,13 @@ app.get('/calculate', (req, res) => {
             vehicle: 'Vehicle Test',
             reload: 'Reload',
             none: 'None',
+        },
+        healingConditions: {
+            '0': 'Good conditions (sterilized med facility)',
+            '-1': 'Average conditions (indoors)',
+            '-2': 'Poor conditions (street or wilderness)',
+            '-3': 'Bad conditions (combat, bad weather, swamp)',
+            '-4': 'Terrible conditions (fire, severe storm)',
         },
         visibility: {
             '0': 'Clear',
