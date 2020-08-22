@@ -394,3 +394,19 @@ tbody td,
 tbody th {
     vertical-align: top;
 }
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+ul li:before {
+    content: '~';
+    display: inline-block;
+    margin-right: 20px;
+    color: var(--chrome-text);
+}
