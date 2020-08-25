@@ -404,7 +404,7 @@ app.get('/calculate', (req, res) => {
             'matrix_search': {
                 label: 'Matrix Search',
                 type: 'matrix_search',
-                actionType: 'special',
+                actionType: 'variable',
                 typeOfTest: 'test',
                 testParameter: {
                     attackerSkill: 'Computer',
@@ -428,7 +428,7 @@ app.get('/calculate', (req, res) => {
                 }
             },
             'send_message': {
-                label: 'Reboot Device',
+                label: 'Send Message',
                 type: 'matrix',
                 actionType: 'simple',
                 typeOfTest: 'none',
@@ -1090,7 +1090,7 @@ app.get('/calculate', (req, res) => {
             'using_medicine': {
                 'label': 'Using Medicine',
                 type: 'healing',
-                actionType: 'test',
+                actionType: 'complex',
                 typeOfTest: 'test',
                 testParameter: {
                     attackerSkill: 'Medicine',
@@ -1119,7 +1119,7 @@ app.get('/calculate', (req, res) => {
             healing: 'Healing Test',
             melee: 'Melee Attack Test',
             matrix: 'Matrix Test',
-            matrix_search: 'Matrix Search Test',
+            matrix_search: 'Matrix Search Test'
             ranged: 'Ranged Attack Test',
             vehicle: 'Vehicle Test',
             reload: 'Reload',
