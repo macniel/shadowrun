@@ -734,13 +734,45 @@ app.get('/calculate', (req, res) => {
                     note: 'A character may stand up as a simple action, but needs to make a test when he is wounded.'
                 }
             },
+            'prepare_alchemy': {
+                label: 'Prepare Alchemy',
+                type: 'spellcasting',
+                actionType: 'simple',
+                typeOfTest: 'staticOpposed',
+                testParameter: {
+                    attackerSkill: 'Alchemy',
+                    attackerAbility: 'Magic',
+                    attackerLimit: 'Force',
+                    hasAttackerLimit: true,
+                    opposedValue: 'Force of the preparation',
+                    note: 'See pg. 305'
+                }
+            },
+            'craft_focus': {
+                label: 'Create Focus',
+                type: 'spellcasting',
+                actionType: 'simple',
+                typeOfTest: 'staticOpposed',
+                testParameter: {
+                    attackerSkill: 'Artificing',
+                    attackerAbility: 'Magic',
+                    attackerLimit: 'Formula Force',
+                    hasAttackerLimit: true,
+                    opposedValue: 'Formula Force + telesma\'s Object Resistance',
+                    note: 'See pg. 307'
+                }
+            },
             'reckless_spellcasting': {
                 label: 'Reckless Spellcasting',
                 type: 'spellcasting',
                 actionType: 'simple',
-                typeOfTest: 'none',
+                typeOfTest: 'test',
                 testParameter: {
-                    note: 'A spellcaster may use a Simple Action to cast a spell more quickly, but at the cost of higher Drain.'
+                    attackerSkill: 'Spellcasting',
+                    attackerAbility: 'Magic',
+                    attackerLimit: 'Force',
+                    hasAttackerLimit: true,
+                    note: 'A spellcaster may use a Simple Action to cast a spell more quickly. Increases Drain by +3. See Spell for further modifiers and effects.'
                 }
             },
             'take_aim': {
@@ -821,18 +853,27 @@ app.get('/calculate', (req, res) => {
                 label: 'Banish Spirit',
                 type: 'spellcasting',
                 actionType: 'complex',
-                typeOfTest: 'none',
+                typeOfTest: 'staticOpposed',
                 testParameter: {
-                    note: 'see p.301'
+                    attackerSkill: 'Banishing',
+                    attackerAbility: 'Magic',
+                    attackerLimit: 'Astral',
+                    hasAttackerLimit: true,
+                    opposedValue: 'Spirit\'s Force'
+                    note: 'Opposed Value is increased by the summoner\'s Magic if the Spirit is bound.'
                 }
             },
             'cast_spell': {
                 label: 'Cast Spell',
                 type: 'spellcasting',
                 actionType: 'complex',
-                typeOfTest: 'none',
+                typeOfTest: 'test',
                 testParameter: {
-                    note: ''
+                    attackerSkill: 'Spellcasting',
+                    attackerAbility: 'Magic',
+                    attackerLimit: 'Force',
+                    hasAttackerLimit: true,
+                    note: 'See Spell for further modifiers and effects.'
                 }
             },
             'fire_complex_action': {
@@ -928,9 +969,14 @@ app.get('/calculate', (req, res) => {
                 label: 'Summoning',
                 type: 'spellcasting',
                 actionType: 'complex',
-                typeOfTest: 'none',
+                typeOfTest: 'staticOpposed',
                 testParameter: {
-                    note: 'A character may summon a spirit to assist them with a Complex Action.'
+                    attackerSkill: 'Summoning',
+                    attackerAbility: 'Magic',
+                    attackerLimit: 'Force',
+                    hasAttackerLimit: true,
+                    opposedValue: 'Spirit\'s Force',
+                    note: 'A character may summon a spirit to assist them with a Complex Action. You may use reagents to change the limit of this test.Each net hit grants 1 service.'
                 }
             },
             'use_skill': {

@@ -38,7 +38,9 @@
                 </div>
                 <p>Total Modifier due to wounds: <span calculated-value="awounds"></span></p>
             </div>
-
+            <div if="type==='spellcasting'">
+                See the Spelllist for further Tables.
+            </div>
             <div if="type==='healing'">
                 {{> calc_healing}}
             </div>
