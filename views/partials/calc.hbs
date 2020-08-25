@@ -50,7 +50,8 @@
 
             </div>
             <div if="type==='matrix'">
-                Matrix Modifiers
+               {{> calc_matrix}}
+
             </div>
             <div if="type==='vehicle'">
                 {{> calc_vehicle}}
@@ -58,13 +59,15 @@
             <div if="type==='reload'">
                 {{> calc_reload}}
             </div>
+            <div if="type === 'matrix_search'">
+                {{> calc_matrixsearch}}
+            </div>
         </div>
-        <div if="opposedTest">
+        <div if="opposedTest && (type !== 'matrix' && type !== 'matrix_search')">
             {{> calc_opposed}}
         </div>
-        <div if="!opposedTest">
-            {{> calc_threshold}}
-        </div>
+       
+        
     </div>
 
      <div if="!tNoTest">
@@ -115,7 +118,14 @@
                 } else if (typeof window[functionRef] === 'string') {
                     element.textContent = window[functionRef];
                     element.value = window[functionRef];
-                } 
+                } else {
+                    try {
+                    element.textContent = eval(functionRef);
+                    element.value = eval(functionRef);
+                    } catch (e) {
+                        console.debug(`Error in parsing '${functionRef}' for given element`, element);
+                    }
+                }
 
             })
 
@@ -433,6 +443,12 @@
             }
         }
 
+        max = function(...values) {
+            let max = Number.MIN_VALUE;
+            values.forEach(v => max = parseInt(v) > max ? parseInt(v): max);
+            return max;
+        }
+
         healingDicepool = function() {
             let dp = 0;
             if (use_healing_conditions) {
@@ -474,6 +490,83 @@
 
         healingThreshold = function() {
 
+        }
+
+        matrixDicePool = function() {
+            let mod = 0;
+            mod += -phydistance;
+            if (mxDense) {
+                mod += -mxDenseValue;
+            }
+            if (mxHot) {
+                mod += +2;
+            }
+            if (mxRunningSilent) {
+                mod += -2;
+            }
+            if (mxPublic) {
+                mod += -2;
+            }
+            if (mxFaraday) {
+                return Number.NaN;
+            }
+            if (mxFreshWater) {
+                mod += -mxFreshWater;
+            }
+            if (mxJamming) {
+                mod += -mxJammingValue;
+            }
+            if (mxMetal) {
+                mod += -mxMetalValue;
+            }
+            if (mxSaltWater) {
+                mod += -mxSaltWaterValue;
+            }
+            if (mxSpamzone) {
+                mod += -Math.max(spamZone, staticZone);
+            }
+            if (mxAntiWireless) {
+                mod += -mxAntiWirelessRating;
+            }
+            return mod;
+        }
+
+        matrixsearchDicePool = function() {
+            let mod = 0;
+            if (mstintricate) {
+                mod += -1;
+            }
+            if (mstobscure) {
+                mod += -2;
+            }
+            if (mstgrid) {
+                mod += -2;
+            }
+            return mod;
+        }
+
+        matrixsearchThreshold = function() {
+            if (mstpublic) {
+                return 1;
+            } else if (mstlimited) {
+                return 3;
+            } else if (msthunted) {
+                return 6;
+            } else {
+                return 'N/A';
+            }
+        }
+
+        matrixsearchInterval = function() {
+            if (mstpublic) {
+                return '1 minute';
+            } else if (mstlimited) {
+                return '30 minutes';
+            } else if (msthunted) {
+                return '12 hours';
+            } else {
+                return 'N/A';
+            }
         }
 
         

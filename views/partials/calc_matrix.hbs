@@ -1,0 +1,92 @@
+<label>Physical distance to Target
+                    {{> components/select name="phydistance" options=this.physicalDistance}}
+</label>
+<h2>Spam and Static Zones</h2>
+<br />
+<div style="display: grid; grid-auto-columns: 1fr; grid-auto-flow: column;">
+
+    <label>Spam Zone
+        {{> components/select name="spamZone" options=this.spamZone}}
+    </label>
+
+
+    <label>Static Zone
+        {{> components/select name="staticZone" options=this.staticZone}}
+    </label>
+</div>
+
+<table>
+    <thead>
+            <tr>
+                <th>Situation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{> components/checkbox name="mxHot" title="Hot Sim Mode"}}
+                    <td>+2</td>
+            </tr>
+            <tr>
+                <td>{{> components/checkbox name="mxMarked" title="Target is Marked"}}
+                    <td>{{> components/inumber name="mxMARKs" title="MARK" default="0" max="3"}}</td>
+            </tr>
+            <tr>
+                <td>{{> components/checkbox name="mxRunningSilent" title="Running Silent"}}
+                    <td>-2</td>
+            </tr>
+            <tr>
+                <td>{{> components/checkbox name="mxPublic" title="Public Grid"}}
+                    <td>-2</td>
+            </tr>
+        </tbody>
+</table>
+
+<table>
+                    <thead>
+                        <tr>
+                            <th>Situation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{> components/checkbox name="mxDense" title="Dense foliage"}}
+                                <td>-{{> components/inumber name="mxDenseValue" title="per 5 Meters" default="0"}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="mxFaraday" title="Faraday cage"}}
+                                <td>No Singal, Action Blocked</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="mxFreshWater" title="Fresh Water"}}
+                                <td>-{{> components/inumber name="mxFreshWaterValue" title="per 10 Centimeters" default="0"}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{> components/checkbox name="mxJamming" title="Jamming"}}
+                                <td>-{{> components/inumber name="mxJammingValue" title="per hit on Jam Signal actions" default="0"}}</td>
+                        </tr>
+                       <tr>
+                            <td>{{> components/checkbox name="mxMetal" title="Metal-laced earth or wall"}}
+                                <td>-{{> components/inumber name="mxMetalValue" title="per 5 Meters" default="0"}}</td>
+                        </tr>
+                         <tr>
+                            <td>{{> components/checkbox name="mxSaltWater" title="Salt Water"}}
+                                <td>-{{> components/inumber name="mxSaltWaterValue" title="per 1 Centimeter" default="0"}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>{{> components/checkbox name="mxSpamzone" title="Spam or static Zone"}}</td>
+                            <td>-<output calculated-value="max(spamZone, staticZone)"></output> Rating</td>
+                        </tr>
+                         <tr>
+                            <td>{{> components/checkbox name="mxAntiWireless" title="Wireless negation"}}</td>
+                            <td>-</td>{{> components/inumber name="mxAntiWirelessRating" title="Rating" default="0"}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h2>Total Modifiers</h2>
+                <div>
+                    Dicepool: <output calculated-value="matrixDicePool"></output><span if="mxFaraday">No Test possible</span></span><br />
+                    
+                </div>        

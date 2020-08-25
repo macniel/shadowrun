@@ -5,10 +5,27 @@
         {{/each}}
     </select>  
 </label>
+
     <script type="text/javascript">
+
+    toggleActionMenu = function() {
+        /**
+         * @type HTMLDivElement
+         */
+        const div = document.getElementById('actionMenu')
+        div.classList.toggle('open');
+    }
     
-    window.tNoTest = false;
+    window.tNoTest = true;
     window.tNote = '';
+    window.tThreshold = '()';
+    window.tAttackerSkill = '';
+    window.tAttackerAbility = '';
+    window.tAttackerLimit = '';
+    window.tDefenseSkill = '';
+    window.tDefenseAbility = '';
+    window.tDefenseAbility = '';
+    window.tDefenseLimit = '';
 
         window.updateStat = function(actionName) {
             const selectedAction = window[actionName];

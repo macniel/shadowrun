@@ -1,0 +1,55 @@
+<table>
+    <thead>
+        <tr>
+            <th>Matrix Search Table</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{> components/checkbox title='General Knowledge or Public' name='mstpublic'}}</td>
+            <td>1 (1 minute)</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Limited Interest or Not Publicizied' name='mstlimited'}}</td>
+            <td>3 (30 minutes)</td>
+        </tr>
+         <tr>
+            <td>{{> components/checkbox title='Hidden or Actively Hunted and Erased' name='msthunted'}}</td>
+            <td>6 (12 hours)</td>
+        </tr>
+         <tr>
+            <td>{{> components/checkbox title='Protected or Secret' name='mstsecret'}}</td>
+            <td>N/A</td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+            <th>Information is</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{> components/checkbox title='Intricate or Specialized' name='mstintricate'}}</td>
+            <td>-1</td>
+        </tr>
+        <tr>
+            <td>{{> components/checkbox title='Obscure' name='mstobscure'}}</td>
+            <td>-2</td>
+        </tr>
+         <tr>
+            <td>{{> components/checkbox title='On another grid' name='mstgrid'}}</td>
+            <td>-2</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Total Modifiers</h2>
+<div>
+    Dicepool: <output calculated-value="matrixsearchDicePool"></output><br />
+    Threshold: <output calculated-value="matrixsearchThreshold"></output><br />
+    Interval: <output calculated-value="matrixsearchInterval"></output><br />
+
+</div>
