@@ -117,7 +117,7 @@ app.get('/calculate', (req, res) => {
                     attackerLimit: 'Mental',
                     hasAttackerLimit: 'true',
                     threshold: '24',
-                    note: 'Interval is 1 hour. A gltich results in a report to the authorities.'
+                    note: 'Interval is 1 hour. A glitched results in a report to the authorities.'
                 }
             },
             'brute_force': {
@@ -635,7 +635,7 @@ app.get('/calculate', (req, res) => {
                 }
             },
             'fire_simple_action': {
-                label: 'Fire Semi-Auto, Single-shot, Burst Fire or Full-Auto',
+                label: 'Fire Weapon',
                 type: 'ranged',
                 actionType: 'simple',
                 typeOfTest: 'opposed',
@@ -836,7 +836,7 @@ app.get('/calculate', (req, res) => {
                 }
             },
             'fire_complex_action': {
-                label: 'Fire Full-Auto Weapon, Long Burst or Semi-Auto',
+                label: 'Fire Full-Auto Weapon',
                 type: 'ranged',
                 actionType: 'complex',
                 typeOfTest: 'opposed',
@@ -1049,7 +1049,7 @@ app.get('/calculate', (req, res) => {
             },
             'recover_stun': {
                 'label': 'Natural Recovery: Stun',
-                type: 'none',
+                type: 'healing',
                 actionType: 'complex',
                 typeOfTest: 'none',
                 testParameter: {
@@ -1062,7 +1062,7 @@ app.get('/calculate', (req, res) => {
             },
             'recover_physical': {
                 'label': 'Natural Recovery: Physical',
-                type: 'none',
+                type: 'healing',
                 actionType: 'complex',
                 typeOfTest: 'none',
                 testParameter: {
@@ -1119,7 +1119,7 @@ app.get('/calculate', (req, res) => {
             healing: 'Healing Test',
             melee: 'Melee Attack Test',
             matrix: 'Matrix Test',
-            matrix_search: 'Matrix Search Test'
+            matrix_search: 'Matrix Search Test',
             ranged: 'Ranged Attack Test',
             vehicle: 'Vehicle Test',
             reload: 'Reload',
