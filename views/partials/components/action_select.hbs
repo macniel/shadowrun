@@ -72,7 +72,8 @@
     window.tDefenseAbility = '';
     window.tDefenseAbility = '';
     window.tDefenseLimit = '';
-
+    window.tOpposedValue = '';
+    
         window.updateStat = function(actionName) {
             const selectedAction = actionName;
             console.log(actionName);
@@ -124,6 +125,12 @@
                         window['tThreshold'] = '';
                     } else {
                         window['tThreshold'] = '({{this.testParameter.threshold}})';
+                    }
+                    if ( '{{this.testParameter.opposedValue}}') {
+                        window['tOpposedValue'] = '{{this.testParameter.opposedValue}}';
+                    }
+                    if ( '{{this.typeOfTest}}' === 'opposed' || '{{this.typeOfTest}}' === 'staticOpposed') {
+                        window['opposedTest'] = true;
                     }
                                  
                 break;

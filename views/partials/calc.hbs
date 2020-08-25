@@ -68,8 +68,6 @@
         <div if="opposedTest && (type !== 'matrix' && type !== 'matrix_search')">
             {{> calc_opposed}}
         </div>
-       
-        
     </div>
 
      <div if="!tNoTest">
@@ -78,12 +76,18 @@
                 Test:<br/>
                 <output calculated-value="tAttackerSkill"></output> + <output calculated-value="tAttackerAbility"></output> <output calculated-value="tAttackerLimit"></output>
                 
-                <output if="!opposedTest" calculated-value="tThreshold"></output>
+                <output if="tThreshold" calculated-value="tThreshold"></output>
             
             </div>
             <div if="opposedTest">
                 Opposed Test:<br/>
-                <output calculated-value="tDefenseSkill"></output> + <output calculated-value="tDefenseAbility"></output> <output calculated-value="tDefenseLimit"></output>
+                <div if="tOpposedValue">
+                    Opposed
+                    <output calculated-value="tOpposedValue"></output>
+                </div>
+                <div if="!tOpposedValue">
+                    <output calculated-value="tDefenseSkill"></output> + <output calculated-value="tDefenseAbility"></output> <output calculated-value="tDefenseLimit"></output>
+                </div>
             </div>
             
         </div>

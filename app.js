@@ -859,7 +859,7 @@ app.get('/calculate', (req, res) => {
                     attackerAbility: 'Magic',
                     attackerLimit: 'Astral',
                     hasAttackerLimit: true,
-                    opposedValue: 'Spirit\'s Force'
+                    opposedValue: 'Spirit\'s Force',
                     note: 'Opposed Value is increased by the summoner\'s Magic if the Spirit is bound.'
                 }
             },
