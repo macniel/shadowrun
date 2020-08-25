@@ -410,3 +410,26 @@ ul li:before {
     margin-right: 20px;
     color: var(--chrome-text);
 }
+
+.closed {
+    display: none;
+}
+
+.content ul {
+    columns: 280px;
+}
+
+.content ul li:before {
+    content: '';
+    display: none;
+}
+
+.content ul li button {
+    font-size: 16pt;
+}
+
+.content ul li h2 {
+    color: white;
+    font-size: 16pt;
+    line-height: 16pt;
+}

@@ -1,19 +1,65 @@
  <label for="{{name}}" class="select">
-    <select id="{{name}}" name="{{name}}" onchange="updateForm(event); updateStat('{{name}}')">
+    <button onclick="toggleActionMenu(); return false">Selection Action</button>
+     <div id="actionMenu" class="closed">
+     <div class="content">
+         <ul id="actions">
+         </ul>
+     </div>
+     <script type="text/javascript">
+        const dataList = [];
         {{#each options}}
-            <option value="{{@key}}">{{this.label}}</option>
+            dataList.push({
+                category: '{{this.type}}',
+                label: '{{this.label}}',
+                action: '{{@key}}',
+            });
         {{/each}}
-    </select>  
+        let actionList = '';
+        let lastCategory = '';
+        dataList.forEach( predicate => predicate.category = predicate.category == 'matrix_search' ? 'matrix': predicate.category);
+        dataList.sort( (a, b) => {
+            if (a.category > b.category ) {
+                return -1;
+            } else if (a.category < b.category) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }).forEach( action => {
+            if ( lastCategory != action.category ) {
+                lastCategory = action.category;
+                actionList += `<li><h2>${action.category}</h2></li>`;
+            }
+            actionList += 
+            `<li>
+                <button onclick="setAction('${action.action}'); return false">${action.label}</button>
+             </li>`;
+            
+        });
+        document.getElementById('actions').innerHTML = actionList;
+     </script>
+
+    
+    <input type="hidden" id="{{name}}" name="{{name}}">
+    </div>
 </label>
 
     <script type="text/javascript">
+
+    setAction = function(newAction) {
+        form['{{name}}'].value = newAction;
+        console.log('{{name}}', form['{{name}}'].value);
+        updateStat(newAction);
+        updateForm();
+        toggleActionMenu();
+    }
 
     toggleActionMenu = function() {
         /**
          * @type HTMLDivElement
          */
         const div = document.getElementById('actionMenu')
-        div.classList.toggle('open');
+        div.classList.toggle('closed');
     }
     
     window.tNoTest = true;
@@ -28,7 +74,8 @@
     window.tDefenseLimit = '';
 
         window.updateStat = function(actionName) {
-            const selectedAction = window[actionName];
+            const selectedAction = actionName;
+            console.log(actionName);
             let alimits = [];
             let dlimits = [];
             switch(selectedAction) {
