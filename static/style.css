@@ -1,6 +1,6 @@
-@font-face { 
-    font-family: "rexlia"; 
-    src: url("/rexlia.ttf"); 
+@font-face {
+    font-family: "rexlia";
+    src: url("/rexlia.ttf");
 }
 
 @font-face {
@@ -21,14 +21,12 @@ body {
     background-color: black;
     padding: 0;
     margin: 12pt;
-
     --accent: hsl(209, 100%, 26%);
     --text: hsl(209, 100%, 75%);
     --chrome: hsl(209, 100%, 10%);
     --chrome-dark: hsl(209, 100%, 5%);
     --chrome-text: hsl(209, 100%, 70%);
-
-    --hypertext: hsl(209,100%, 80%);
+    --hypertext: hsl(209, 100%, 80%);
     --hypertext-hover: hsl(209, 100%, 85%);
 }
 
@@ -53,6 +51,7 @@ header .button-group {
     top: 8px;
     width: fit-content;
 }
+
 header .button-group button {
     float: right;
     margin-left: 8pt;
@@ -66,6 +65,7 @@ header button {
     color: var(--chrome-text);
     text-transform: uppercase;
 }
+
 header button:before {
     content: '';
 }
@@ -88,6 +88,7 @@ header h1:before {
     display: block;
     content: '';
 }
+
 header h1:after {
     position: absolute;
     background-color: var(--chrome);
@@ -100,8 +101,9 @@ header h1:after {
     content: '';
 }
 
-h2,h3 {
-   color: var(--text);
+h2,
+h3 {
+    color: var(--text);
     text-transform: uppercase;
 }
 
@@ -159,7 +161,7 @@ table thead tr {
     z-index: 5;
 }
 
-table >*:first-child:before {
+table>*:first-child:before {
     position: absolute;
     border: 30pt solid var(--chrome);
     border-color: transparent transparent transparent var(--chrome);
@@ -171,7 +173,8 @@ table >*:first-child:before {
     display: block;
     content: '';
 }
-table >*:first-child:after {
+
+table>*:first-child:after {
     position: absolute;
     background-color: var(--chrome);
     left: 0;
@@ -194,6 +197,7 @@ table:before {
     display: block;
     content: '';
 }
+
 table:after {
     position: absolute;
     background-color: var(--chrome);
@@ -239,10 +243,10 @@ label {
     background-color: var(--chrome);
     margin: 12pt 0;
     padding: 0 8px 4px 4px;
-    
 }
 
-label input, label textarea {
+label input,
+label textarea {
     display: block;
     background-color: black;
     border: 0;
@@ -251,7 +255,7 @@ label input, label textarea {
 }
 
 li:nth-child(even) {
-    background-color: 
+    background-color:
 }
 
 textarea {
@@ -262,36 +266,41 @@ a {
     text-decoration: none;
     color: var(--hypertext);
 }
+
 a:hover {
     color: var(--hypertext-hover);
 }
+
 :not(nav ul li) a::before {
     content: '[ ';
 }
+
 :not(nav ul li) a::after {
     content: ' ]';
 }
+
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 nav ul li {
     text-indent: 0;
     margin: 0;
     padding: 0;
 }
+
 nav ul li:before {
-    content:'> ';
+    content: '> ';
 }
 
 article {
     padding-bottom: 12pt;
 }
 
-
 body {
-    padding: 32pt 0 48pt 0;    
+    padding: 32pt 0 48pt 0;
 }
 
 header {
@@ -312,16 +321,12 @@ footer {
     margin: 0;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
     text-decoration: underline;
 }
 
-
-
-
-input[type=checkbox]::before {
-    
-}
+input[type=checkbox]::before {}
 
 label.input {
     border: 0;
@@ -381,7 +386,6 @@ label.select::after {
     pointer-events: none;
 }
 
-
 label.select select {
     -moz-appearance: none;
     appearance: none;
@@ -390,7 +394,7 @@ label.select select {
     width: 100%;
 }
 
-tbody td, 
+tbody td,
 tbody th {
     vertical-align: top;
 }
@@ -432,4 +436,43 @@ ul li:before {
     color: white;
     font-size: 16pt;
     line-height: 16pt;
+}
+
+header #topleft {
+    position: absolute;
+    left: 0;
+    top: 48px;
+    height: 24px;
+    width: 24px;
+    fill: var(--chrome);
+}
+
+header #topright {
+    position: absolute;
+    right: 0;
+    top: 80px;
+    height: 24px;
+    width: 24px;
+    transform: scaleX(-1);
+    fill: var(--chrome);
+}
+
+footer #bottomleft {
+    position: absolute;
+    left: 0;
+    bottom: 32px;
+    height: 24px;
+    width: 24px;
+    transform: scaleY(-1);
+    fill: var(--chrome);
+}
+
+footer #bottomright {
+    position: absolute;
+    right: 0;
+    bottom: 32px;
+    height: 24px;
+    width: 24px;
+    transform: scaleX(-1) scaleY(-1);
+    fill: var(--chrome);
 }
