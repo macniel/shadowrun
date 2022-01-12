@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "express-hbs": "^2.3.4",
     "express-session": "^1.17.1",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-container": "^3.0.0"
   }
 }
