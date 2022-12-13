@@ -19,7 +19,7 @@
   "homepage": "https://github.com/macniel/shadowrun#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-hbs": "^2.3.4",
     "express-session": "^1.17.1",
     "markdown-it": "^11.0.0",
